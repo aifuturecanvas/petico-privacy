@@ -836,11 +836,19 @@ const DIALOGUES = [
   }
 ];
 
+// ===================== SAFE STORAGE =====================
+function lsGet(key, def) {
+  try { return JSON.parse(localStorage.getItem(key) || def); } catch(e) { return JSON.parse(def); }
+}
+function lsSet(key, val) {
+  try { localStorage.setItem(key, JSON.stringify(val)); } catch(e) {}
+}
+
 // ===================== STATE =====================
 let allCards = [...VOCAB];
 let currentDeck = [];
 let cardIndex = 0;
-let knownIds = new Set(JSON.parse(localStorage.getItem('knownIds') || '[]'));
+let knownIds = new Set(lsGet('knownIds', '[]'));
 let isFlipped = false;
 let activeCat = 'Tümü';
 
@@ -928,7 +936,7 @@ function markCard(known) {
   } else {
     knownIds.delete(globalIndex);
   }
-  localStorage.setItem('knownIds', JSON.stringify([...knownIds]));
+  lsSet('knownIds', [...knownIds]);
   cardIndex++;
   if (cardIndex >= currentDeck.length) cardIndex = 0;
   showCard();
@@ -937,7 +945,7 @@ function markCard(known) {
 function resetCards() {
   if (!confirm('Tüm ilerleme sıfırlansın mı?')) return;
   knownIds.clear();
-  localStorage.removeItem('knownIds');
+  lsSet('knownIds', []);
   cardIndex = 0;
   showCard();
 }
