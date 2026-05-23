@@ -2,758 +2,812 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Fuar Ingilizcesi — Doruk Yay</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Fuar Ingilizcesi</title>
 <style>
-:root {
-  --primary: #1a3a5c;
-  --accent: #e07b2a;
-  --green: #27ae60;
-  --red: #e74c3c;
-  --bg: #f0f4f8;
-  --card: #ffffff;
-  --text: #1a2a3a;
-  --muted: #6b7f93;
-  --border: #d0dce8;
-  --shadow: 0 4px 20px rgba(26,58,92,0.12);
-}
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding-bottom: 80px; }
+* { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; background:#f0f4f8; color:#1a2a3a; padding-bottom:80px; }
 
-header { background: var(--primary); color: #fff; padding: 14px 20px 10px; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
-header h1 { font-size: 16px; font-weight: 700; }
-header p { font-size: 11px; opacity: 0.7; margin-top: 2px; }
+#header { background:#1a3a5c; color:#fff; padding:14px 16px 10px; text-align:center; position:sticky; top:0; z-index:99; box-shadow:0 2px 10px rgba(0,0,0,0.3); }
+#header h1 { font-size:16px; font-weight:700; }
+#header p  { font-size:11px; opacity:0.7; margin-top:2px; }
 
-.nav { display: flex; background: var(--primary); border-top: 1px solid rgba(255,255,255,0.15); }
-.nav button { flex: 1; padding: 9px 2px 8px; background: none; border: none; color: rgba(255,255,255,0.55); font-size: 10px; font-weight: 700; cursor: pointer; text-transform: uppercase; letter-spacing: 0.3px; display: flex; flex-direction: column; align-items: center; gap: 3px; }
-.nav button .ic { font-size: 17px; }
-.nav button.on { color: var(--accent); border-bottom: 2px solid var(--accent); }
+#tabs { display:-webkit-flex; display:flex; background:#1a3a5c; border-top:1px solid rgba(255,255,255,0.12); }
+#tabs div { -webkit-flex:1; flex:1; padding:9px 2px 8px; color:rgba(255,255,255,0.5); font-size:10px; font-weight:700; text-align:center; text-transform:uppercase; letter-spacing:0.3px; cursor:pointer; }
+#tabs div span { display:block; font-size:18px; margin-bottom:2px; }
+#tabs div.on { color:#e07b2a; border-bottom:2px solid #e07b2a; }
 
-.sec { display: none; padding: 16px; }
-.sec.on { display: block; }
-
-.stitle { font-size: 18px; font-weight: 800; color: var(--primary); margin-bottom: 2px; }
-.ssub { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+.page { display:none; padding:16px; }
+.page.on { display:block; }
+.ptitle { font-size:18px; font-weight:800; color:#1a3a5c; margin-bottom:2px; }
+.psub   { font-size:13px; color:#6b7f93; margin-bottom:14px; }
 
 /* Stats */
-.stats { display: flex; gap: 10px; margin-bottom: 12px; }
-.stat { flex: 1; background: var(--card); border-radius: 12px; padding: 12px; text-align: center; box-shadow: var(--shadow); }
-.stat .n { font-size: 22px; font-weight: 800; }
-.stat .l { font-size: 11px; color: var(--muted); font-weight: 600; margin-top: 2px; }
-.stat.g .n { color: var(--green); }
-.stat.o .n { color: var(--accent); }
-.stat.b .n { color: var(--primary); }
+.statrow { display:-webkit-flex; display:flex; gap:10px; margin-bottom:12px; }
+.statbox { -webkit-flex:1; flex:1; background:#fff; border-radius:12px; padding:12px; text-align:center; box-shadow:0 4px 16px rgba(26,58,92,0.1); }
+.statbox .n { font-size:22px; font-weight:800; }
+.statbox .l { font-size:11px; color:#6b7f93; font-weight:600; margin-top:2px; }
+.gn .n { color:#27ae60; } .bn .n { color:#1a3a5c; } .on .n { color:#e07b2a; }
 
 /* Progress */
-.prog-wrap { margin-bottom: 14px; }
-.prog-label { font-size: 12px; color: var(--muted); margin-bottom: 4px; display: flex; justify-content: space-between; }
-.prog-bar { height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
-.prog-fill { height: 100%; background: linear-gradient(90deg, var(--accent), #f0a050); border-radius: 99px; transition: width 0.4s; }
+.prow { margin-bottom:14px; }
+.plabel { font-size:12px; color:#6b7f93; margin-bottom:4px; display:-webkit-flex; display:flex; justify-content:space-between; }
+.pbar { height:6px; background:#d0dce8; border-radius:99px; overflow:hidden; }
+.pfill { height:100%; background:linear-gradient(90deg,#e07b2a,#f0a050); border-radius:99px; -webkit-transition:width 0.4s; transition:width 0.4s; }
 
 /* Filters */
-.filters { display: flex; gap: 7px; flex-wrap: wrap; margin-bottom: 13px; }
-.fbtn { padding: 6px 12px; border-radius: 20px; border: 1.5px solid var(--border); background: var(--card); font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer; }
-.fbtn.on { background: var(--primary); color: #fff; border-color: var(--primary); }
+.frow { display:-webkit-flex; display:flex; flex-wrap:wrap; gap:7px; margin-bottom:13px; }
+.ftag { padding:6px 12px; border-radius:20px; border:1.5px solid #d0dce8; background:#fff; font-size:12px; font-weight:600; color:#6b7f93; cursor:pointer; }
+.ftag.on { background:#1a3a5c; color:#fff; border-color:#1a3a5c; }
 
-/* Flashcard */
-.fc-wrap { perspective: 900px; margin-bottom: 16px; }
-.fc { width: 100%; height: 195px; position: relative; cursor: pointer; transform-style: preserve-3d; transition: transform 0.45s cubic-bezier(0.4,0,0.2,1); }
-.fc.flip { transform: rotateY(180deg); }
-.face { position: absolute; inset: 0; border-radius: 18px; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 22px; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: var(--shadow); }
-.face.front { background: linear-gradient(135deg, #1a3a5c, #2a5a8c); color: #fff; }
-.face.back { background: linear-gradient(135deg, #e07b2a, #f0a050); color: #fff; transform: rotateY(180deg); }
-.face .tag { position: absolute; top: 13px; right: 13px; font-size: 10px; background: rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 9px; font-weight: 600; }
-.face .word { font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 6px; }
-.face .sub { font-size: 12px; opacity: 0.8; text-align: center; }
-.face .hint { position: absolute; bottom: 12px; font-size: 11px; opacity: 0.55; }
-.fc-count { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 9px; }
-.fc-acts { display: flex; gap: 9px; }
-.fc-btn { flex: 1; padding: 14px; border: none; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 5px; }
-.fc-btn:active { opacity: 0.8; }
-.fc-btn.again { background: #fdecea; color: #c0392b; }
-.fc-btn.know { background: #e8f8f0; color: #1a7a46; }
-.fc-btn.reset { background: var(--border); color: var(--muted); flex: 0 0 auto; padding: 14px 18px; }
+/* Card */
+.cardwrap { -webkit-perspective:900px; perspective:900px; margin-bottom:14px; }
+.card3d { width:100%; height:190px; position:relative; cursor:pointer;
+  -webkit-transform-style:preserve-3d; transform-style:preserve-3d;
+  -webkit-transition:-webkit-transform 0.45s; transition:transform 0.45s; }
+.card3d.flipped { -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+.cface { position:absolute; top:0; left:0; right:0; bottom:0; border-radius:18px;
+  display:-webkit-flex; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  padding:20px; -webkit-backface-visibility:hidden; backface-visibility:hidden; box-shadow:0 4px 18px rgba(26,58,92,0.12); }
+.cfront { background:linear-gradient(135deg,#1a3a5c,#2a5a8c); color:#fff; }
+.cback  { background:linear-gradient(135deg,#e07b2a,#f0a050); color:#fff; -webkit-transform:rotateY(180deg); transform:rotateY(180deg); }
+.ctag  { position:absolute; top:12px; right:12px; font-size:10px; background:rgba(255,255,255,0.2); padding:2px 7px; border-radius:9px; font-weight:600; }
+.cword { font-size:26px; font-weight:800; text-align:center; margin-bottom:6px; }
+.csub  { font-size:12px; opacity:0.8; text-align:center; }
+.chint { position:absolute; bottom:11px; font-size:11px; opacity:0.5; }
+
+#fc-count { text-align:center; font-size:12px; color:#6b7f93; margin-bottom:8px; }
+
+.actrow { display:-webkit-flex; display:flex; gap:9px; }
+.actbtn { -webkit-flex:1; flex:1; padding:14px; border:none; border-radius:12px; font-size:14px; font-weight:700; cursor:pointer; }
+.actbtn:active { opacity:0.75; }
+.btn-again { background:#fdecea; color:#c0392b; }
+.btn-know  { background:#e8f8f0; color:#1a7a46; }
+.btn-reset { background:#d0dce8; color:#6b7f93; -webkit-flex:0 0 auto; flex:0 0 auto; padding:14px 18px; }
 
 /* Phrases */
-.phrase { background: var(--card); border-radius: 13px; padding: 15px; margin-bottom: 10px; box-shadow: var(--shadow); }
-.phrase-en { font-size: 15px; font-weight: 600; color: var(--primary); line-height: 1.45; }
-.phrase-tr { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.4; display: none; }
-.phrase-tr.on { display: block; }
-.phrase-acts { display: flex; gap: 7px; margin-top: 10px; }
-.pbtn { padding: 6px 13px; border: none; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
-.pbtn:active { opacity: 0.75; }
-.pbtn.show { background: #eef2f7; color: var(--primary); }
-.pbtn.copy { background: var(--accent); color: #fff; }
-.copied { font-size: 11px; font-weight: 700; color: var(--green); margin-top: 5px; display: none; }
-.copied.on { display: block; }
+.phr { background:#fff; border-radius:13px; padding:15px; margin-bottom:10px; box-shadow:0 4px 16px rgba(26,58,92,0.1); }
+.phr-en { font-size:15px; font-weight:600; color:#1a3a5c; line-height:1.45; }
+.phr-tr { font-size:13px; color:#6b7f93; margin-top:6px; line-height:1.4; display:none; }
+.phr-tr.on { display:block; }
+.phr-acts { display:-webkit-flex; display:flex; gap:7px; margin-top:10px; }
+.phr-btn { padding:6px 13px; border:none; border-radius:8px; font-size:12px; font-weight:600; cursor:pointer; }
+.phr-btn:active { opacity:0.75; }
+.pbshow { background:#eef2f7; color:#1a3a5c; }
+.pbcopy { background:#e07b2a; color:#fff; }
+.phr-copied { font-size:11px; font-weight:700; color:#27ae60; margin-top:5px; display:none; }
+.phr-copied.on { display:block; }
 
 /* Dialogue */
-.dlg-btn { width: 100%; text-align: left; background: var(--card); border: 2px solid var(--border); border-radius: 12px; padding: 13px 15px; margin-bottom: 8px; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--primary); }
-.dlg-btn:active { border-color: var(--accent); }
-.dlg-btn .dsub { font-size: 12px; color: var(--muted); font-weight: 400; margin-top: 2px; }
-.chat { margin-bottom: 10px; }
-.msg { display: flex; gap: 9px; margin-bottom: 10px; align-items: flex-end; }
-.msg.them { flex-direction: row; }
-.msg.you { flex-direction: row-reverse; }
-.avatar { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
-.msg.them .avatar { background: #e8eef5; }
-.msg.you .avatar { background: #fdebd8; }
-.bubble { max-width: 80%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.45; }
-.msg.them .bubble { background: var(--card); border-bottom-left-radius: 3px; box-shadow: var(--shadow); }
-.msg.you .bubble { background: var(--primary); color: #fff; border-bottom-right-radius: 3px; }
-.btr { font-size: 11px; margin-top: 4px; opacity: 0.6; }
-.choice-label { font-size: 11px; color: var(--muted); font-weight: 700; text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 7px; }
-.cbtn { width: 100%; text-align: left; padding: 11px 13px; margin-bottom: 7px; border: 2px solid var(--border); border-radius: 11px; background: var(--card); font-size: 13px; cursor: pointer; line-height: 1.4; }
-.cbtn:active { border-color: var(--accent); }
-.cbtn.correct { border-color: var(--green); background: #e8f8f0; color: #1a7a46; font-weight: 700; }
-.cbtn.wrong { border-color: var(--red); background: #fdecea; color: #c0392b; }
-.dlg-res { text-align: center; padding: 22px; background: var(--card); border-radius: 14px; margin-top: 8px; display: none; }
-.dlg-res.on { display: block; }
-.dlg-res h3 { font-size: 20px; margin-bottom: 5px; }
-.dlg-res p { color: var(--muted); font-size: 14px; margin-bottom: 14px; }
-.btn-back { background: var(--primary); color: #fff; border: none; border-radius: 10px; padding: 12px 22px; font-size: 14px; font-weight: 700; cursor: pointer; }
+.dlg-scene-btn { width:100%; text-align:left; background:#fff; border:2px solid #d0dce8; border-radius:12px; padding:13px 15px; margin-bottom:8px; cursor:pointer; font-size:14px; font-weight:600; color:#1a3a5c; }
+.dlg-scene-btn:active { border-color:#e07b2a; }
+.dlg-sub-lbl { font-size:12px; color:#6b7f93; font-weight:400; margin-top:2px; }
+.chat-msg { display:-webkit-flex; display:flex; gap:9px; margin-bottom:10px; -webkit-align-items:flex-end; align-items:flex-end; }
+.chat-msg.them { -webkit-flex-direction:row; flex-direction:row; }
+.chat-msg.you  { -webkit-flex-direction:row-reverse; flex-direction:row-reverse; }
+.chat-av { width:30px; height:30px; border-radius:50%; display:-webkit-flex; display:flex; align-items:center; justify-content:center; font-size:15px; -webkit-flex-shrink:0; flex-shrink:0; }
+.chat-msg.them .chat-av { background:#e8eef5; }
+.chat-msg.you  .chat-av { background:#fdebd8; }
+.chat-bubble { max-width:80%; padding:10px 13px; border-radius:14px; font-size:14px; line-height:1.45; }
+.chat-msg.them .chat-bubble { background:#fff; border-bottom-left-radius:3px; box-shadow:0 4px 14px rgba(26,58,92,0.1); }
+.chat-msg.you  .chat-bubble { background:#1a3a5c; color:#fff; border-bottom-right-radius:3px; }
+.chat-tr { font-size:11px; margin-top:4px; opacity:0.6; }
+.choice-label { font-size:11px; color:#6b7f93; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:7px; }
+.choice-opt { width:100%; text-align:left; padding:11px 13px; margin-bottom:7px; border:2px solid #d0dce8; border-radius:11px; background:#fff; font-size:13px; cursor:pointer; line-height:1.4; }
+.choice-opt:active { border-color:#e07b2a; }
+.choice-opt.correct { border-color:#27ae60; background:#e8f8f0; color:#1a7a46; font-weight:700; }
+.choice-opt.wrong   { border-color:#e74c3c; background:#fdecea; color:#c0392b; }
+.dlg-result { display:none; text-align:center; padding:22px; background:#fff; border-radius:14px; margin-top:8px; box-shadow:0 4px 16px rgba(26,58,92,0.1); }
+.dlg-result.on { display:block; }
+.dlg-result h3 { font-size:20px; margin-bottom:5px; }
+.dlg-result p  { color:#6b7f93; font-size:14px; margin-bottom:14px; }
+.btn-back { background:#1a3a5c; color:#fff; border:none; border-radius:10px; padding:12px 22px; font-size:14px; font-weight:700; cursor:pointer; }
 
 /* Quiz */
-.quiz-start { text-align: center; padding: 30px 10px; }
-.quiz-start h2 { font-size: 22px; color: var(--primary); margin-bottom: 6px; }
-.quiz-start p { color: var(--muted); font-size: 14px; margin-bottom: 22px; line-height: 1.5; }
-.btn-quiz { background: linear-gradient(135deg, var(--accent), #f0a050); color: #fff; border: none; border-radius: 14px; padding: 16px 40px; font-size: 16px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px rgba(224,123,42,0.3); }
-.qbar { display: flex; justify-content: space-between; margin-bottom: 10px; }
-.qbar span { font-size: 13px; color: var(--muted); font-weight: 600; }
-.qbar .score { font-size: 16px; font-weight: 800; color: var(--accent); }
-.qcard { background: var(--card); border-radius: 14px; padding: 18px; margin-bottom: 12px; box-shadow: var(--shadow); }
-.qq { font-size: 15px; font-weight: 600; color: var(--primary); margin-bottom: 4px; }
-.qqtr { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
-.qopts { display: flex; flex-direction: column; gap: 8px; }
-.qopt { padding: 13px 15px; border: 2px solid var(--border); border-radius: 11px; background: var(--card); font-size: 14px; cursor: pointer; text-align: left; }
-.qopt:active { border-color: var(--accent); }
-.qopt.correct { border-color: var(--green); background: #e8f8f0; color: #1a7a46; font-weight: 700; }
-.qopt.wrong { border-color: var(--red); background: #fdecea; color: #c0392b; }
-.qresult { text-align: center; padding: 30px 16px; display: none; }
-.qresult.on { display: block; }
-.circle { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), #2a5a8c); color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 16px; box-shadow: 0 8px 24px rgba(26,58,92,0.25); }
-.circle .big { font-size: 32px; font-weight: 800; }
-.circle .sm { font-size: 12px; opacity: 0.7; }
-.rmsg { font-size: 18px; font-weight: 700; margin-bottom: 5px; }
-.rsub { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
-.rbtn { background: var(--primary); color: #fff; border: none; border-radius: 11px; padding: 13px 26px; font-size: 14px; font-weight: 700; cursor: pointer; margin: 0 4px; }
-.rbtn.sec { background: var(--border); color: var(--muted); }
+.quiz-start { text-align:center; padding:30px 10px; }
+.quiz-start h2 { font-size:22px; color:#1a3a5c; margin-bottom:6px; }
+.quiz-start p  { color:#6b7f93; font-size:14px; margin-bottom:22px; line-height:1.5; }
+.btn-quiz { background:linear-gradient(135deg,#e07b2a,#f0a050); color:#fff; border:none; border-radius:14px; padding:16px 40px; font-size:16px; font-weight:700; cursor:pointer; box-shadow:0 6px 20px rgba(224,123,42,0.3); }
+.qbar { display:-webkit-flex; display:flex; justify-content:space-between; margin-bottom:10px; }
+.qbar span { font-size:13px; color:#6b7f93; font-weight:600; }
+.qbar .qscore { font-size:16px; font-weight:800; color:#e07b2a; }
+.qcard { background:#fff; border-radius:14px; padding:18px; margin-bottom:12px; box-shadow:0 4px 16px rgba(26,58,92,0.1); }
+.qq    { font-size:15px; font-weight:600; color:#1a3a5c; margin-bottom:4px; }
+.qqsub { font-size:13px; color:#6b7f93; margin-bottom:14px; }
+.qopts { display:-webkit-flex; display:flex; flex-direction:column; gap:8px; }
+.qopt { padding:13px 15px; border:2px solid #d0dce8; border-radius:11px; background:#fff; font-size:14px; cursor:pointer; text-align:left; }
+.qopt:active { border-color:#e07b2a; }
+.qopt.correct { border-color:#27ae60; background:#e8f8f0; color:#1a7a46; font-weight:700; }
+.qopt.wrong   { border-color:#e74c3c; background:#fdecea; color:#c0392b; }
+.qresult { display:none; text-align:center; padding:30px 16px; }
+.qresult.on { display:block; }
+.scorecircle { width:110px; height:110px; border-radius:50%; background:linear-gradient(135deg,#1a3a5c,#2a5a8c); color:#fff; display:-webkit-flex; display:flex; -webkit-flex-direction:column; flex-direction:column; align-items:center; justify-content:center; margin:0 auto 16px; box-shadow:0 8px 24px rgba(26,58,92,0.25); }
+.scorecircle .bign { font-size:32px; font-weight:800; }
+.scorecircle .smn  { font-size:12px; opacity:0.7; }
+.rmsg { font-size:18px; font-weight:700; margin-bottom:5px; }
+.rsub { font-size:14px; color:#6b7f93; margin-bottom:20px; }
+.rbtn { background:#1a3a5c; color:#fff; border:none; border-radius:11px; padding:13px 26px; font-size:14px; font-weight:700; cursor:pointer; margin:0 4px; }
+.rbtn.sec { background:#d0dce8; color:#6b7f93; }
 </style>
 </head>
-<body>
+<body onload="startApp()">
 
-<header>
+<div id="header">
   <h1>Fuar Ingilizcesi</h1>
   <p>Doruk Yay — Endustriyel Fuara Hazirlik</p>
-</header>
+</div>
 
-<nav class="nav" id="nav">
-  <button class="on" data-tab="flashcards"><span class="ic">&#127183;</span>Kelimeler</button>
-  <button data-tab="phrases"><span class="ic">&#128172;</span>Cumleler</button>
-  <button data-tab="dialogue"><span class="ic">&#129309;</span>Diyalog</button>
-  <button data-tab="quiz"><span class="ic">&#127919;</span>Quiz</button>
-</nav>
+<div id="tabs">
+  <div class="on"    onclick="goTab('fc')"><span>&#127183;</span>Kelimeler</div>
+  <div               onclick="goTab('ph')"><span>&#128172;</span>Cumleler</div>
+  <div               onclick="goTab('dl')"><span>&#129309;</span>Diyalog</div>
+  <div               onclick="goTab('qz')"><span>&#127919;</span>Quiz</div>
+</div>
 
 <!-- FLASHCARDS -->
-<section class="sec on" id="sec-flashcards">
-  <div class="stitle">Kelime Hazinesi</div>
-  <div class="ssub">Karti cevir, Ingilizceyi gren</div>
-  <div class="stats">
-    <div class="stat g"><div class="n" id="s-know">0</div><div class="l">Biliyorum</div></div>
-    <div class="stat b"><div class="n" id="s-total">0</div><div class="l">Toplam</div></div>
-    <div class="stat o"><div class="n" id="s-left">0</div><div class="l">Kalan</div></div>
+<div id="pg-fc" class="page on">
+  <div class="ptitle">Kelime Hazinesi</div>
+  <div class="psub">Karti cevir, Ingilizceyi gren</div>
+  <div class="statrow">
+    <div class="statbox gn"><div class="n" id="s-know">0</div><div class="l">Biliyorum</div></div>
+    <div class="statbox bn"><div class="n" id="s-total">0</div><div class="l">Toplam</div></div>
+    <div class="statbox on"><div class="n" id="s-left">0</div><div class="l">Kalan</div></div>
   </div>
-  <div class="prog-wrap">
-    <div class="prog-label"><span>Ilerleme</span><span id="s-pct">0%</span></div>
-    <div class="prog-bar"><div class="prog-fill" id="s-bar" style="width:0%"></div></div>
+  <div class="prow">
+    <div class="plabel"><span>Ilerleme</span><span id="s-pct">0%</span></div>
+    <div class="pbar"><div class="pfill" id="s-bar" style="width:0%"></div></div>
   </div>
-  <div class="filters" id="fc-filters"></div>
-  <div class="fc-count" id="fc-count">— / —</div>
-  <div class="fc-wrap">
-    <div class="fc" id="fc" onclick="flipCard()">
-      <div class="face front">
-        <span class="tag" id="fc-cat">—</span>
-        <div class="word" id="fc-tr">Yukleniyor...</div>
-        <div class="sub" id="fc-ph"></div>
-        <div class="hint">Cevirmek icin dokun</div>
+  <div class="frow" id="fc-filters"></div>
+  <div id="fc-count">— / —</div>
+  <div class="cardwrap">
+    <div class="card3d" id="fc-card" onclick="flipCard()">
+      <div class="cface cfront">
+        <div class="ctag" id="fc-cat">—</div>
+        <div class="cword" id="fc-word">Yukleniyor</div>
+        <div class="csub"  id="fc-ph"></div>
+        <div class="chint">Cevirmek icin dokun</div>
       </div>
-      <div class="face back">
-        <span class="tag" id="fc-cat2">—</span>
-        <div class="word" id="fc-en">—</div>
-        <div class="sub" id="fc-ex"></div>
-        <div class="hint">Geri cevirmek icin dokun</div>
+      <div class="cface cback">
+        <div class="ctag" id="fc-cat2">—</div>
+        <div class="cword" id="fc-en">—</div>
+        <div class="csub"  id="fc-ex"></div>
+        <div class="chint">Geri cevirmek icin dokun</div>
       </div>
     </div>
   </div>
-  <div class="fc-acts">
-    <button class="fc-btn again" onclick="markCard(false)">&#10007; Tekrar</button>
-    <button class="fc-btn know" onclick="markCard(true)">&#10003; Biliyorum</button>
-    <button class="fc-btn reset" onclick="resetCards()">&#8635;</button>
+  <div class="actrow">
+    <button class="actbtn btn-again" onclick="markCard(0)">&#10007; Tekrar</button>
+    <button class="actbtn btn-know"  onclick="markCard(1)">&#10003; Biliyorum</button>
+    <button class="actbtn btn-reset" onclick="resetCards()">&#8635;</button>
   </div>
-</section>
+</div>
 
 <!-- PHRASES -->
-<section class="sec" id="sec-phrases">
-  <div class="stitle">Hazir Cumleler</div>
-  <div class="ssub">Fuarda kullanabilecegin ifadeler</div>
-  <div class="filters" id="ph-filters"></div>
+<div id="pg-ph" class="page">
+  <div class="ptitle">Hazir Cumleler</div>
+  <div class="psub">Fuarda kullanabilecegin ifadeler</div>
+  <div class="frow" id="ph-filters"></div>
   <div id="ph-list"></div>
-</section>
+</div>
 
 <!-- DIALOGUE -->
-<section class="sec" id="sec-dialogue">
-  <div class="stitle">Diyalog Pratigi</div>
-  <div class="ssub">Gercek fuar senaryolarini canlandir</div>
-  <div id="dlg-scenarios"></div>
-  <div id="dlg-area"></div>
-</section>
+<div id="pg-dl" class="page">
+  <div class="ptitle">Diyalog Pratigi</div>
+  <div class="psub">Gercek fuar senaryolarini canlandir</div>
+  <div id="dlg-scenes"></div>
+  <div id="dlg-chat"></div>
+  <div id="dlg-choices"></div>
+  <div class="dlg-result" id="dlg-result"></div>
+</div>
 
 <!-- QUIZ -->
-<section class="sec" id="sec-quiz">
-  <div class="stitle">Hizli Quiz</div>
-  <div class="ssub">10 soruluk kelime testi</div>
-  <div id="quiz-start" class="quiz-start">
+<div id="pg-qz" class="page">
+  <div class="ptitle">Hizli Quiz</div>
+  <div class="psub">10 soruluk kelime testi</div>
+  <div id="qz-start" class="quiz-start">
     <h2>Hazir misin?</h2>
     <p>Ogrendigin kelimeleri test et.<br>Her turda 10 rastgele soru.</p>
     <button class="btn-quiz" onclick="startQuiz()">Quiz Baslat</button>
   </div>
-  <div id="quiz-active" style="display:none">
-    <div class="qbar">
-      <span id="q-label">Soru 1/10</span>
-      <span class="score" id="q-score">0</span>
-    </div>
-    <div class="prog-wrap">
-      <div class="prog-bar"><div class="prog-fill" id="q-bar" style="width:10%"></div></div>
-    </div>
+  <div id="qz-active" style="display:none">
+    <div class="qbar"><span id="qz-label">Soru 1/10</span><span class="qscore" id="qz-score">0 dogru</span></div>
+    <div class="prow"><div class="pbar"><div class="pfill" id="qz-bar" style="width:10%"></div></div></div>
     <div class="qcard">
-      <div class="qq" id="q-q">—</div>
-      <div class="qqtr" id="q-tr"></div>
-      <div class="qopts" id="q-opts"></div>
+      <div class="qq" id="qz-q">—</div>
+      <div class="qqsub" id="qz-qsub"></div>
+      <div class="qopts" id="qz-opts"></div>
     </div>
   </div>
-  <div id="quiz-result" class="qresult">
-    <div class="circle">
-      <div class="big" id="r-score">0</div>
-      <div class="sm">/10</div>
-    </div>
-    <div class="rmsg" id="r-msg">—</div>
-    <div class="rsub" id="r-sub">—</div>
+  <div class="qresult" id="qz-result">
+    <div class="scorecircle"><div class="bign" id="qz-rscore">0</div><div class="smn">/10</div></div>
+    <div class="rmsg" id="qz-rmsg">—</div>
+    <div class="rsub" id="qz-rsub">—</div>
     <button class="rbtn" onclick="startQuiz()">Tekrar Dene</button>
-    <button class="rbtn sec" onclick="showTab('flashcards')">Kelimeler</button>
+    <button class="rbtn sec" onclick="goTab('fc')">Kelimeler</button>
   </div>
-</section>
+</div>
 
 <script>
-// ============================================================
-// DATA
-// ============================================================
-var VOCAB = [
-  {tr:"Baski Yayi",     en:"Compression Spring",  cat:"Urunler", ph:"/kəm-PRESH-ən/",   ex:"We produce compression springs for heavy loads."},
-  {tr:"Cekme Yayi",     en:"Tension Spring",       cat:"Urunler", ph:"/TEN-shən/",        ex:"Tension springs return to original length when released."},
-  {tr:"Burulma Yayi",   en:"Torsion Spring",       cat:"Urunler", ph:"/TOR-shən/",        ex:"Torsion springs store rotational energy."},
-  {tr:"Disk Yayi",      en:"Disc Spring",           cat:"Urunler", ph:"/disk/",             ex:"Disc springs handle high loads in small spaces."},
-  {tr:"Helezon Yay",    en:"Coil Spring",           cat:"Urunler", ph:"/koyl/",             ex:"These are standard coil springs for automotive use."},
-  {tr:"Yaprak Yay",     en:"Leaf Spring",           cat:"Urunler", ph:"/leef/",             ex:"Leaf springs are common in truck suspensions."},
-  {tr:"Tel Formu",      en:"Wire Form",             cat:"Urunler", ph:"/wayr form/",        ex:"We also manufacture custom wire forms."},
-  {tr:"Klips Yayi",     en:"Clamp Spring",          cat:"Urunler", ph:"/klamp/",            ex:"Clamp springs are used for secure fastening."},
-  {tr:"Paslanmaz Celik",en:"Stainless Steel",       cat:"Malzeme", ph:"/STAYN-ləs steel/", ex:"We use stainless steel for corrosive environments."},
-  {tr:"Galvanizli Celik",en:"Galvanized Steel",     cat:"Malzeme", ph:"/GAL-və-nyzd/",      ex:"Galvanized steel resists rust effectively."},
-  {tr:"Yay Celigi",     en:"Spring Steel",          cat:"Malzeme", ph:"/spring steel/",     ex:"Spring steel provides excellent elasticity."},
-  {tr:"Titanyum",       en:"Titanium",              cat:"Malzeme", ph:"/ty-TAY-nee-əm/",   ex:"Titanium springs are lightweight and strong."},
-  {tr:"Tungsten",       en:"Tungsten",              cat:"Malzeme", ph:"/TUNG-stən/",        ex:"Tungsten wire handles very high temperatures."},
-  {tr:"Karbon Celigi",  en:"Carbon Steel",          cat:"Malzeme", ph:"/KAR-bən/",          ex:"Carbon steel is our most common material."},
-  {tr:"Bakir",          en:"Copper",                cat:"Malzeme", ph:"/KOP-ər/",           ex:"Copper springs conduct electricity well."},
-  {tr:"Fosfor Bronzu",  en:"Phosphor Bronze",       cat:"Malzeme", ph:"/FOS-fər bronz/",   ex:"Phosphor bronze offers good fatigue resistance."},
-  {tr:"Tel Capi",       en:"Wire Diameter",         cat:"Teknik",  ph:"/dahy-AM-i-ter/",   ex:"What wire diameter do you need?"},
-  {tr:"Dis Cap",        en:"Outer Diameter",        cat:"Teknik",  ph:"/OW-ter/",           ex:"The outer diameter must fit the housing."},
-  {tr:"Ic Cap",         en:"Inner Diameter",        cat:"Teknik",  ph:"/IN-er/",            ex:"Inner diameter is 12 millimeters."},
-  {tr:"Serbest Uzunluk",en:"Free Length",           cat:"Teknik",  ph:"/free length/",      ex:"Free length is 50mm uncompressed."},
-  {tr:"Yay Sabiti",     en:"Spring Rate",           cat:"Teknik",  ph:"/spring rayt/",      ex:"Spring rate is 5 N per mm."},
-  {tr:"Tolerans",       en:"Tolerance",             cat:"Teknik",  ph:"/TOL-ər-əns/",      ex:"Our tolerance is plus or minus 0.1mm."},
-  {tr:"Sarim Sayisi",   en:"Number of Coils",       cat:"Teknik",  ph:"/koylz/",            ex:"This model has 10 active coils."},
-  {tr:"Yuk Kapasitesi", en:"Load Capacity",         cat:"Teknik",  ph:"/lohd kə-PAS-i-tee/",ex:"Maximum load capacity is 500 Newtons."},
-  {tr:"Yorulma Direnci",en:"Fatigue Resistance",    cat:"Teknik",  ph:"/fə-TEEG/",          ex:"High fatigue resistance for long service life."},
-  {tr:"Yuzey Islemi",   en:"Surface Treatment",     cat:"Teknik",  ph:"/SUR-fəs/",          ex:"What surface treatment do you prefer?"},
-  {tr:"Isil Islem",     en:"Heat Treatment",        cat:"Teknik",  ph:"/heet/",             ex:"Heat treatment improves spring performance."},
-  {tr:"Boyama",         en:"Coating / Painting",    cat:"Teknik",  ph:"/KOH-ting/",         ex:"We offer powder coating in any color."},
-  {tr:"Ozel Uretim",    en:"Custom Made",           cat:"Uretim",  ph:"/KUS-təm mayd/",     ex:"This is a custom made product for your specs."},
-  {tr:"Prototip",       en:"Prototype",             cat:"Uretim",  ph:"/PROH-toh-typ/",     ex:"We can build a prototype in 3 days."},
-  {tr:"Seri Uretim",    en:"Mass Production",       cat:"Uretim",  ph:"/mas prə-DUK-shən/", ex:"Ready for mass production next month."},
-  {tr:"Kalite Kontrol", en:"Quality Control",       cat:"Uretim",  ph:"/KWOL-i-tee/",       ex:"Our quality control is ISO 9001 certified."},
-  {tr:"Teslim Suresi",  en:"Lead Time",             cat:"Uretim",  ph:"/leed tym/",          ex:"Lead time is 2 weeks for standard orders."},
-  {tr:"Min. Siparis",   en:"Minimum Order (MOQ)",   cat:"Uretim",  ph:"/MOQ/",               ex:"Minimum order quantity is 500 pieces."},
-  {tr:"Kapasite",       en:"Production Capacity",   cat:"Uretim",  ph:"/prə-DUK-shən/",     ex:"Our monthly capacity is 2 million pieces."},
-  {tr:"Teknik Cizim",   en:"Technical Drawing",     cat:"Uretim",  ph:"/DRAW-ing/",          ex:"Please send us your technical drawing."},
-  {tr:"Numune",         en:"Sample",                cat:"Uretim",  ph:"/SAM-pəl/",           ex:"We can send a free sample first."},
-  {tr:"Katalog",        en:"Catalog / Brochure",    cat:"Fuar",    ph:"/KAT-ə-log/",        ex:"Here is our product catalog."},
-  {tr:"Kartvizit",      en:"Business Card",         cat:"Fuar",    ph:"/BIZ-nis card/",      ex:"May I have your business card?"},
-  {tr:"Teklif",         en:"Quotation / Quote",     cat:"Fuar",    ph:"/kwoh-TAY-shən/",    ex:"I will send you a quotation by email."},
-  {tr:"Fiyat Listesi",  en:"Price List",            cat:"Fuar",    ph:"/prys list/",          ex:"Here is our standard price list."},
-  {tr:"Ihracat",        en:"Export",                cat:"Fuar",    ph:"/EK-sport/",           ex:"We export to over 20 countries."},
-  {tr:"Tedarikci",      en:"Supplier",              cat:"Fuar",    ph:"/sə-PLY-ər/",         ex:"We are a reliable spring supplier."},
-  {tr:"Musteri",        en:"Client / Customer",     cat:"Fuar",    ph:"/KLY-ənt/",           ex:"Our clients include automotive companies."},
-  {tr:"Ortaklik",       en:"Partnership",           cat:"Fuar",    ph:"/PART-ner-ship/",     ex:"We are open to long-term partnership."},
-  {tr:"Anlasma",        en:"Agreement / Deal",      cat:"Fuar",    ph:"/ə-GREE-mənt/",      ex:"We finalized the agreement this week."},
-  {tr:"Nakliye",        en:"Shipping / Freight",    cat:"Fuar",    ph:"/SHIP-ing/",          ex:"We handle international shipping."}
+/* =========================================================
+   DATA
+   ========================================================= */
+var V = [
+  /* YAY TURLERI */
+  {tr:"Baski Yayi",       en:"Compression Spring",   cat:"Yay Turleri", ph:"/kəm-PRESH-ən/",    ex:"We produce compression springs for automotive use."},
+  {tr:"Cekme Yayi",       en:"Tension Spring",        cat:"Yay Turleri", ph:"/TEN-shən/",         ex:"Tension springs return to free length when released."},
+  {tr:"Burulma Yayi",     en:"Torsion Spring",        cat:"Yay Turleri", ph:"/TOR-shən/",         ex:"Torsion springs store rotational energy."},
+  {tr:"Disk Yayi",        en:"Disc Spring",            cat:"Yay Turleri", ph:"/disk/",              ex:"Disc springs handle high loads in small spaces."},
+  {tr:"Helezon Yay",      en:"Coil Spring",            cat:"Yay Turleri", ph:"/koyl/",              ex:"Coil springs are our core product line."},
+  {tr:"Yaprak Yay",       en:"Leaf Spring",            cat:"Yay Turleri", ph:"/leef/",              ex:"Leaf springs are used in vehicle suspensions."},
+  {tr:"Tel Formu",        en:"Wire Form",              cat:"Yay Turleri", ph:"/wayr form/",         ex:"Wire forms can replace multiple components."},
+  {tr:"Dalgali Yay",      en:"Wave Spring",            cat:"Yay Turleri", ph:"/wayv/",              ex:"Wave springs save space in tight assemblies."},
+  {tr:"Konik Yay",        en:"Conical Spring",         cat:"Yay Turleri", ph:"/KON-i-kəl/",        ex:"Conical springs compress to a very flat position."},
+  {tr:"Sabit Kuvvet Yayi",en:"Constant Force Spring",  cat:"Yay Turleri", ph:"/KON-stənt/",        ex:"Constant force springs provide steady tension."},
+  {tr:"Mikro Yay",        en:"Micro Spring",           cat:"Yay Turleri", ph:"/MY-kroh/",           ex:"Micro springs are used in medical devices."},
+  {tr:"Sarmal Yay",       en:"Spiral Spring",          cat:"Yay Turleri", ph:"/SPY-rəl/",           ex:"Spiral springs store energy in instruments."},
+  /* MALZEME */
+  {tr:"Paslanmaz Celik",  en:"Stainless Steel",        cat:"Malzeme",     ph:"/STAYN-ləs/",        ex:"Stainless steel is ideal for corrosive environments."},
+  {tr:"Karbon Celigi",    en:"Carbon Steel",           cat:"Malzeme",     ph:"/KAR-bən/",           ex:"Carbon steel is cost-effective for most uses."},
+  {tr:"Yay Celigi",       en:"Spring Steel",           cat:"Malzeme",     ph:"/spring steel/",      ex:"Spring steel provides excellent elasticity."},
+  {tr:"Titanyum",         en:"Titanium",               cat:"Malzeme",     ph:"/ty-TAY-nee-əm/",    ex:"Titanium springs are lightweight and strong."},
+  {tr:"Inconel",          en:"Inconel",                cat:"Malzeme",     ph:"/IN-koh-nel/",        ex:"Inconel is used for high-temperature applications."},
+  {tr:"Fosfor Bronzu",    en:"Phosphor Bronze",        cat:"Malzeme",     ph:"/FOS-fər/",           ex:"Phosphor bronze is used in electrical contacts."},
+  {tr:"Galvanizli",       en:"Galvanized",             cat:"Malzeme",     ph:"/GAL-və-nyzd/",       ex:"Galvanized coating protects against rust."},
+  {tr:"Tungsten",         en:"Tungsten",               cat:"Malzeme",     ph:"/TUNG-stən/",         ex:"Tungsten handles extreme temperatures."},
+  {tr:"Silisyum Krom",    en:"Silicon Chrome",         cat:"Malzeme",     ph:"/SIL-i-kən/",         ex:"Silicon chrome alloy for high fatigue life."},
+  {tr:"Pirinc",           en:"Brass",                  cat:"Malzeme",     ph:"/bras/",               ex:"Brass springs are used in decorative applications."},
+  /* TEKNIK */
+  {tr:"Tel Capi",         en:"Wire Diameter",          cat:"Teknik",      ph:"/dahy-AM-i-ter/",     ex:"What wire diameter do you require?"},
+  {tr:"Dis Cap",          en:"Outer Diameter",         cat:"Teknik",      ph:"/OW-ter/",             ex:"Outer diameter must clear the bore."},
+  {tr:"Ic Cap",           en:"Inner Diameter",         cat:"Teknik",      ph:"/IN-er/",              ex:"Inner diameter must fit over the mandrel."},
+  {tr:"Serbest Uzunluk",  en:"Free Length",            cat:"Teknik",      ph:"/free length/",        ex:"Free length is measured with no load."},
+  {tr:"Yay Sabiti",       en:"Spring Rate",            cat:"Teknik",      ph:"/spring rayt/",        ex:"Spring rate is force divided by deflection."},
+  {tr:"Tolerans",         en:"Tolerance",              cat:"Teknik",      ph:"/TOL-ər-əns/",        ex:"Our standard tolerance is plus or minus 0.1mm."},
+  {tr:"Sarim Sayisi",     en:"Number of Coils",        cat:"Teknik",      ph:"/koylz/",              ex:"This model has 10 active coils."},
+  {tr:"Yuk Kapasitesi",   en:"Load Capacity",          cat:"Teknik",      ph:"/lohd/",               ex:"Maximum load capacity is 500 Newtons."},
+  {tr:"Yorulma Omru",     en:"Fatigue Life",           cat:"Teknik",      ph:"/fə-TEEG/",            ex:"Fatigue life exceeds one million cycles."},
+  {tr:"Adim Mesafesi",    en:"Pitch",                  cat:"Teknik",      ph:"/pich/",               ex:"Pitch is the distance between coils."},
+  {tr:"Son Tip",          en:"End Type",               cat:"Teknik",      ph:"/end typ/",            ex:"End type can be open, closed, or ground."},
+  {tr:"Sarma Yonu",       en:"Winding Direction",      cat:"Teknik",      ph:"/WYN-ding/",           ex:"Right-hand or left-hand winding?"},
+  {tr:"Calisma Uzunlugu", en:"Working Length",         cat:"Teknik",      ph:"/WUR-king/",           ex:"Working length is under specified load."},
+  {tr:"Akma Siniri",      en:"Yield Strength",         cat:"Teknik",      ph:"/yeeld/",              ex:"Yield strength determines the elastic range."},
+  {tr:"Cekme Dayanimi",   en:"Tensile Strength",       cat:"Teknik",      ph:"/TEN-səl/",            ex:"Tensile strength is 1800 MPa minimum."},
+  {tr:"Sertlik",          en:"Hardness",               cat:"Teknik",      ph:"/HARD-nis/",           ex:"Hardness is measured on the Rockwell scale."},
+  {tr:"Yuzey Kalitesi",   en:"Surface Finish",         cat:"Teknik",      ph:"/SUR-fəs/",            ex:"Surface finish Ra below 1.6 microns."},
+  /* URETIM */
+  {tr:"Ozel Uretim",      en:"Custom Made",            cat:"Uretim",      ph:"/KUS-təm/",            ex:"This is a custom made product for your specs."},
+  {tr:"Prototip",         en:"Prototype",              cat:"Uretim",      ph:"/PROH-toh-typ/",       ex:"We can build a prototype in 3 days."},
+  {tr:"Seri Uretim",      en:"Mass Production",        cat:"Uretim",      ph:"/mas prə-DUK-shən/",  ex:"Ready for mass production next month."},
+  {tr:"Kalite Kontrol",   en:"Quality Control",        cat:"Uretim",      ph:"/KWOL-i-tee/",         ex:"Our quality control is ISO 9001 certified."},
+  {tr:"Teslim Suresi",    en:"Lead Time",              cat:"Uretim",      ph:"/leed tym/",           ex:"Lead time is 2 weeks for standard orders."},
+  {tr:"Min. Siparis",     en:"Minimum Order (MOQ)",    cat:"Uretim",      ph:"/MOQ/",                ex:"Minimum order quantity is 500 pieces."},
+  {tr:"Numune",           en:"Sample",                 cat:"Uretim",      ph:"/SAM-pəl/",            ex:"We can send a free sample within 48 hours."},
+  {tr:"Teknik Cizim",     en:"Technical Drawing",      cat:"Uretim",      ph:"/DRAW-ing/",           ex:"Please send us your technical drawing."},
+  {tr:"Sertifika",        en:"Certificate",            cat:"Uretim",      ph:"/sər-TIF-i-kət/",      ex:"Material certificate provided with each order."},
+  {tr:"Kalip Maliyeti",   en:"Tooling Cost",           cat:"Uretim",      ph:"/TOOL-ing/",           ex:"Tooling cost is a one-time charge."},
+  {tr:"Ilk Numune",       en:"First Article (FAI)",    cat:"Uretim",      ph:"/FAI/",                ex:"FAI approval needed before mass production."},
+  {tr:"Izlenebilirlik",   en:"Traceability",           cat:"Uretim",      ph:"/tray-sə-BIL-i-tee/", ex:"Full traceability from wire to finished spring."},
+  /* IS VE FUAR */
+  {tr:"Katalog",          en:"Catalog",                cat:"Is ve Fuar",  ph:"/KAT-ə-log/",         ex:"Here is our full product catalog."},
+  {tr:"Kartvizit",        en:"Business Card",          cat:"Is ve Fuar",  ph:"/BIZ-nis/",           ex:"May I have your business card?"},
+  {tr:"Teklif",           en:"Quotation",              cat:"Is ve Fuar",  ph:"/kwoh-TAY-shən/",     ex:"I will send you a quotation by email."},
+  {tr:"Ihracat",          en:"Export",                 cat:"Is ve Fuar",  ph:"/EK-sport/",           ex:"We export to over 35 countries."},
+  {tr:"Tedarikci",        en:"Supplier",               cat:"Is ve Fuar",  ph:"/sə-PLY-er/",         ex:"We are a reliable spring supplier."},
+  {tr:"Ortaklik",         en:"Partnership",            cat:"Is ve Fuar",  ph:"/PART-nər-ship/",     ex:"We are open to long-term partnership."},
+  {tr:"Nakliye",          en:"Shipping",               cat:"Is ve Fuar",  ph:"/SHIP-ing/",           ex:"We handle international shipping."},
+  {tr:"Akreditif",        en:"Letter of Credit",       cat:"Is ve Fuar",  ph:"/KRED-it/",           ex:"We accept letters of credit."},
+  {tr:"Depozito",         en:"Deposit",                cat:"Is ve Fuar",  ph:"/di-POZ-it/",          ex:"30 percent deposit to confirm the order."},
+  {tr:"Garanti",          en:"Warranty",               cat:"Is ve Fuar",  ph:"/WOR-ən-tee/",        ex:"12 month warranty on all products."},
+  {tr:"Stant",            en:"Booth / Stand",          cat:"Is ve Fuar",  ph:"/booth/",              ex:"Please visit our booth in Hall 5."},
+  {tr:"Fiyat Listesi",    en:"Price List",             cat:"Is ve Fuar",  ph:"/prys/",               ex:"Here is our standard price list."},
+  {tr:"Referans",         en:"Reference",              cat:"Is ve Fuar",  ph:"/REF-ər-əns/",        ex:"We can provide customer references."},
+  {tr:"Anlasma",          en:"Agreement",              cat:"Is ve Fuar",  ph:"/ə-GREE-mənt/",       ex:"We can finalize the agreement this week."},
+  {tr:"Iskonti",          en:"Discount",               cat:"Is ve Fuar",  ph:"/DIS-kownt/",          ex:"Volume discounts start at 5000 pieces."},
+  {tr:"Bayi",             en:"Distributor",            cat:"Is ve Fuar",  ph:"/dis-TRIB-yoo-ter/",  ex:"We are looking for distributors in Europe."},
+  {tr:"Gumruk",           en:"Customs",                cat:"Is ve Fuar",  ph:"/KUS-temz/",           ex:"All customs documentation is included."},
+  {tr:"FOB",              en:"FOB (Free On Board)",    cat:"Is ve Fuar",  ph:"/ef-oh-bee/",          ex:"We ship FOB Istanbul port."},
+  {tr:"DDP",              en:"DDP (Duties Paid)",      cat:"Is ve Fuar",  ph:"/dee-dee-pee/",        ex:"DDP means all duties are included."},
+  {tr:"Yillik Anlasma",   en:"Annual Contract",        cat:"Is ve Fuar",  ph:"/AN-yoo-əl/",         ex:"Annual contracts receive priority scheduling."}
 ];
 
-var PHRASES = [
-  {cat:"Tanisma", en:"Hello, my name is [Name]. I represent Doruk Yay from Istanbul.", tr:"Merhaba, adim [Isim]. Istanbul'dan Doruk Yay'i temsil ediyorum."},
-  {cat:"Tanisma", en:"Nice to meet you. Here is my business card.", tr:"Tanistigimiza memnun oldum. Kartvizitim buyurun."},
-  {cat:"Tanisma", en:"We are a spring manufacturer based in Istanbul, Turkey.", tr:"Istanbul, Turkiye'de kurulu bir yay ureticisiyiz."},
-  {cat:"Tanisma", en:"We have been in this industry for over 20 years.", tr:"20 yili askin suredir bu sektordeyiz."},
-  {cat:"Tanisma", en:"May I ask what industry you are in?", tr:"Hangi sektorde oldugunuzu sorabilir miyim?"},
+var P = [
+  {cat:"Tanisma", en:"Hello, my name is [Name]. I represent Doruk Yay from Istanbul, Turkey.", tr:"Merhaba, adim [Isim]. Istanbul, Turkiye'den Doruk Yay'i temsil ediyorum."},
+  {cat:"Tanisma", en:"Nice to meet you. Here is my business card.", tr:"Tanis tigimiza memnun oldum. Kartvizitim buyurun."},
+  {cat:"Tanisma", en:"We are a spring manufacturer based in Istanbul, Turkey.", tr:"Biz Istanbul, Turkiye merkezli bir yay ureticisiyiz."},
+  {cat:"Tanisma", en:"We have been in this industry for over 20 years.", tr:"Bu sektorde 20 yili askin suredir faaliyet gosteriyoruz."},
+  {cat:"Tanisma", en:"May I ask what industry you are in?", tr:"Hangi sektorde faaliyet gosterdiginizi sorabilir miyim?"},
   {cat:"Tanisma", en:"Are you looking for a spring supplier?", tr:"Bir yay tedarikci mi ariyorsunuz?"},
-  {cat:"Urun",    en:"We specialize in custom spring manufacturing.", tr:"Ozel yay uretiminde uzmanlasiuyoruz."},
-  {cat:"Urun",    en:"We produce compression, tension, and torsion springs.", tr:"Baski, cekme ve burulma yaylari uretiyoruz."},
-  {cat:"Urun",    en:"Our springs are made from stainless steel, carbon steel, and titanium.", tr:"Yaylarimiz paslanmaz celik, karbon celigi ve titanyumdan uretilir."},
-  {cat:"Urun",    en:"We can manufacture according to your technical drawings.", tr:"Teknik cizimlerinize gore uretim yapabiliriz."},
-  {cat:"Urun",    en:"Here is our catalog. Please take a look.", tr:"Katologumuz burada. Lutfen bir goz atin."},
-  {cat:"Urun",    en:"Would you like to see some samples?", tr:"Bazi numuneleri gormek ister misiniz?"},
-  {cat:"Urun",    en:"We are ISO 9001 certified.", tr:"ISO 9001 sertifikaliyiz."},
-  {cat:"Urun",    en:"Our monthly production capacity is two million pieces.", tr:"Aylik uretim kapasitemiz iki milyon adettir."},
-  {cat:"Teknik",  en:"What wire diameter do you need?", tr:"Hangi tel capina ihtiyaciniz var?"},
-  {cat:"Teknik",  en:"What is the required spring rate?", tr:"Gereken yay sabiti nedir?"},
-  {cat:"Teknik",  en:"Do you have a technical drawing?", tr:"Teknik ciziminiz var mi?"},
-  {cat:"Teknik",  en:"What material do you prefer?", tr:"Hangi malzemeyi tercih edersiniz?"},
-  {cat:"Teknik",  en:"What is the operating temperature range?", tr:"Calisma sicakligi araligi nedir?"},
-  {cat:"Teknik",  en:"We can achieve a tolerance of plus or minus 0.1 millimeters.", tr:"Plus minus 0,1 milimetre tolerans saglayabiliriz."},
-  {cat:"Teknik",  en:"Can you send us the specifications by email?", tr:"Teknik ozellikleri e-posta ile gonderebilir misiniz?"},
-  {cat:"Fiyat",   en:"I will send you a quotation within 24 hours.", tr:"24 saat icinde teklif gonderecegim."},
-  {cat:"Fiyat",   en:"Our lead time is typically two to three weeks.", tr:"Teslim suremiz genellikle iki ila uc haftadir."},
-  {cat:"Fiyat",   en:"The price depends on quantity and material.", tr:"Fiyat, miktar ve malzemeye gore degisir."},
-  {cat:"Fiyat",   en:"Our minimum order quantity is 500 pieces.", tr:"Minimum siparis miktarimiz bes yuz adettir."},
-  {cat:"Fiyat",   en:"We offer competitive prices with high quality.", tr:"Yuksek kaliteyle rekabetci fiyatlar sunuyoruz."},
-  {cat:"Fiyat",   en:"We can ship worldwide via DHL, FedEx, or sea freight.", tr:"DHL, FedEx veya deniz yoluyla dunya genelinde gonderi yapabiliriz."},
-  {cat:"Fiyat",   en:"For large orders, we can negotiate the price.", tr:"Buyuk siparislerde fiyat gorusebiliriz."},
-  {cat:"Kapanis", en:"It was a pleasure meeting you.", tr:"Sizi tanımaktan buyuk memnuniyet duydum."},
+  {cat:"Tanisma", en:"We serve clients in automotive, aerospace, and medical industries.", tr:"Otomotiv, havacilik ve medikal sektorlerdeki musteri lere hizmet veriyoruz."},
+  {cat:"Tanisma", en:"Is this your first time at this exhibition?", tr:"Bu fuara ilk kez mi katiliyorsunuz?"},
+  {cat:"Tanisma", en:"We export to 35 countries across 5 continents.", tr:"5 kitada 35 ulkeye ihracat yapiyoruz."},
+  {cat:"Tanisma", en:"Let me show you our product catalog.", tr:"Size urun katalogumuzu gostermeme izin verin."},
+  {cat:"Urun", en:"We specialize in custom spring manufacturing.", tr:"Ozel yay uretiminde uzmanlasmis bir firmayiz."},
+  {cat:"Urun", en:"We produce compression, tension, torsion, and disc springs.", tr:"Baski, cekme, burulma ve disk yaylari uretiyoruz."},
+  {cat:"Urun", en:"We manufacture springs from 0.1mm wire diameter up to 50mm bar diameter.", tr:"0.1mm tel capindan 50mm cubuk capina kadar yay uretiyoruz."},
+  {cat:"Urun", en:"We can manufacture according to your technical drawings.", tr:"Teknik cizimlerinize gore uretim yapabiliriz."},
+  {cat:"Urun", en:"Here is our catalog with over 5000 standard references.", tr:"5000'den fazla standart referans iceren katalogumuzu buyurun."},
+  {cat:"Urun", en:"Would you like to see some samples?", tr:"Bazi numunelerimizi gormek ister misiniz?"},
+  {cat:"Urun", en:"We are ISO 9001 and IATF 16949 certified.", tr:"ISO 9001 ve IATF 16949 sertifikaliyiz."},
+  {cat:"Urun", en:"All springs are 100 percent load tested before delivery.", tr:"Tum yaylar teslimattan once yuzde 100 yuk testine tabi tutulur."},
+  {cat:"Urun", en:"Our monthly production capacity is two million pieces.", tr:"Aylik uretim kapasitemiz iki milyon adettir."},
+  {cat:"Urun", en:"We supply tier 1 automotive manufacturers.", tr:"Tier 1 otomotiv uretici lerine tedarik yapiyoruz."},
+  {cat:"Teknik", en:"What wire diameter do you need for this application?", tr:"Bu uygulama icin hangi tel capina ihtiyaciniz var?"},
+  {cat:"Teknik", en:"What is the required spring rate in Newtons per millimeter?", tr:"Newton/mm cinsinden gereken yay sabiti nedir?"},
+  {cat:"Teknik", en:"Do you have a technical drawing or specification sheet?", tr:"Teknik ciziminiz veya sart nameniz var mi?"},
+  {cat:"Teknik", en:"What material grade do you require for this environment?", tr:"Bu ortam icin hangi malzeme sinifiniz gerekiyor?"},
+  {cat:"Teknik", en:"What is the operating temperature range?", tr:"Calisma sicakligi araligi nedir?"},
+  {cat:"Teknik", en:"Our standard tolerance is plus or minus 0.1 millimeters.", tr:"Standart toleransimiz arti eksi 0.1 mm'dir."},
+  {cat:"Teknik", en:"We can achieve fatigue life of over one million cycles.", tr:"Bir milyonun uzerinde cevrim yorulma omru elde edebiliyoruz."},
+  {cat:"Teknik", en:"Do you need right-hand or left-hand winding direction?", tr:"Sag el mi sol el mi sarma yonu gerekiyor?"},
+  {cat:"Teknik", en:"Can you send the drawing by email? We will respond within 24 hours.", tr:"Cizimi e-posta ile gonderebilir misiniz? 24 saat icinde cevap veririz."},
+  {cat:"Teknik", en:"What end type do you need, open, closed, or ground ends?", tr:"Hangi son tipine ihtiyaciniz var, acik, kapali veya taslama?"},
+  {cat:"Fiyat", en:"I will send you a detailed quotation within 24 hours.", tr:"24 saat icinde size ayrintili teklif gonderecegim."},
+  {cat:"Fiyat", en:"Our lead time is typically two to three weeks.", tr:"Teslim suremiz genellikle iki ila uc haftadir."},
+  {cat:"Fiyat", en:"The price depends on quantity, material, and tolerances.", tr:"Fiyat miktar, malzeme ve toleranslara gore degisir."},
+  {cat:"Fiyat", en:"Our minimum order quantity is 500 pieces.", tr:"Minimum siparis miktarimiz 500 adettir."},
+  {cat:"Fiyat", en:"For quantities above 50,000 pieces, we offer significant discounts.", tr:"50.000 adedin uzerindeki miktarlar icin onemli iskontolar sunuyoruz."},
+  {cat:"Fiyat", en:"We can ship worldwide via DHL Express or sea freight.", tr:"DHL Express veya deniz yolu ile dunyaya gonderim yapabiliriz."},
+  {cat:"Fiyat", en:"Tooling cost is a one-time charge, credited after 3 orders.", tr:"Kalip maliyeti tek seferlik bir ucret olup 3 siparis sonunda mahsup edilir."},
+  {cat:"Fiyat", en:"The quotation is valid for 30 days from issue date.", tr:"Teklif, duzenleme tarihinden itibaren 30 gun gecerlidir."},
+  {cat:"Muzakere", en:"We are flexible on payment terms for long-term partners.", tr:"Uzun vadeli ortaklar icin odeme kosullarinda esnekiz."},
+  {cat:"Muzakere", en:"If you sign an annual contract, I can reduce the price.", tr:"Yillik sozlesme imzalanirsa fiyati dusurebi lirim."},
+  {cat:"Muzakere", en:"I can offer you a 5 percent first-order discount.", tr:"Ilk siparise yuzde 5 indirim sunabilirim."},
+  {cat:"Muzakere", en:"Let us agree on a trial order of 1000 pieces first.", tr:"Once 1000 adetlik deneme siparisi uzerinde anlasalim."},
+  {cat:"Muzakere", en:"We can offer consignment stock for high-volume customers.", tr:"Yuksek hacimli musteriler icin konsinye stok sunabiliriz."},
+  {cat:"Muzakere", en:"What is your current supplier lead time? We can beat it.", tr:"Mevcut tedarikcinizin teslim suresi nedir? Biz daha iyi yapabiliriz."},
+  {cat:"Muzakere", en:"Can you share your annual spring consumption forecast?", tr:"Yillik yay tuketim tahmininizi paylasar misiniz?"},
+  {cat:"Problem", en:"I understand your concern and take it seriously.", tr:"Endis enizi anliyorum ve ciddiye aliyorum."},
+  {cat:"Problem", en:"Please send us a sample of the non-conforming parts.", tr:"Lutfen uygun olmayan parca larindan numune gonderin."},
+  {cat:"Problem", en:"We will provide a root cause analysis within 48 hours.", tr:"48 saat icinde kok neden analizi sunacagiz."},
+  {cat:"Problem", en:"We will arrange replacement parts at no charge.", tr:"Ucretsiz olarak yedek parca temin edecegiz."},
+  {cat:"Problem", en:"I apologize for the inconvenience. This is not our standard.", tr:"Yarattigi rahatsizlik icin ozur dilerim. Bu bizim standartimiz degil."},
+  {cat:"Anlamadim", en:"I am sorry, could you please repeat that?", tr:"Ozur dilerim, tekrar edebilir misiniz?"},
+  {cat:"Anlamadim", en:"Could you speak a little more slowly please?", tr:"Biraz daha yavas konusabilir misiniz?"},
+  {cat:"Anlamadim", en:"Could you write that down for me please?", tr:"Benim icin bunu yazar misiniz?"},
+  {cat:"Anlamadim", en:"Let me check with my colleague, one moment please.", tr:"Meslektasimla kontrol edeyim, bir dakika lutfen."},
+  {cat:"Anlamadim", en:"Do you have a business card so I can follow up in writing?", tr:"Yazili olarak takip edebilmem icin kartvizi tiniz var mi?"},
+  {cat:"Kapanis", en:"It was a pleasure meeting you.", tr:"Sizinle tanismak buyuk bir memnuniyet ti."},
   {cat:"Kapanis", en:"Let us stay in touch. Here is my contact information.", tr:"Iletisimde kalalim. Iste iletisim bilgilerim."},
-  {cat:"Kapanis", en:"I will follow up with you by email.", tr:"E-posta ile takipte kalacagim."},
-  {cat:"Kapanis", en:"I look forward to working with you.", tr:"Sizinle calismay sabırsızlıkla bekliyorum."},
-  {cat:"Kapanis", en:"Do not hesitate to contact me anytime.", tr:"Istediginiz zaman benimle iletisime gecmekten cekinmeyin."}
+  {cat:"Kapanis", en:"I will send you the catalog and quotation by email today.", tr:"Katalog ve teklifi bugun size e-posta ile gonderecegim."},
+  {cat:"Kapanis", en:"I look forward to working with you.", tr:"Sizinle calismayi sabirs izlikla bekliyorum."},
+  {cat:"Kapanis", en:"Do not hesitate to contact me anytime.", tr:"Istediginiz zaman benimle iletisime gecmekten cekinmeyin."},
+  {cat:"Kapanis", en:"Thank you for your time. Safe travels home.", tr:"Zaman ayrirdiginiz icin tesek kurler. Iyi yolculuklar."},
+  {cat:"Kapanis", en:"Can we schedule a video call next week to continue?", tr:"Devam etmek icin gelecek hafta gorutu gorume planlayabilir miyiz?"}
 ];
 
-var DIALOGUES = [
+var D = [
   {
-    id:"intro", title:"Stant Tanitimi", sub:"Fuarda birine sirketi anlatmak",
+    title:"Stant Tanitimi",
+    sub:"Fuarda birine sirketi anlatmak",
     steps:[
       {type:"them", en:"Hello! Is this the Doruk Yay stand?", tr:"Merhaba! Burasi Doruk Yay standi mi?"},
       {type:"choice", prompt:"Ne dersin?", opts:[
-        {en:"Yes, exactly! Welcome. I am from Doruk Yay.", tr:"Evet, aynen! Hos geldiniz. Doruk Yay'dan.", ok:true},
-        {en:"No, wrong stand.", tr:"Hayir, yanlis stand.", ok:false},
-        {en:"I do not know.", tr:"Bilmiyorum.", ok:false}
+        {en:"Yes, welcome! I am from Doruk Yay. How can I help you?", tr:"Evet, hos geldiniz! Ben Doruk Yay'dan. Size nasil yardimci olabilirim?", ok:1},
+        {en:"No, wrong stand.", tr:"Hayir, yanlis stand.", ok:0},
+        {en:"I am not sure.", tr:"Emin degilim.", ok:0}
       ]},
-      {type:"them", en:"Great! What do you manufacture?", tr:"Harika! Ne uretiyorsunuz?"},
+      {type:"them", en:"Great! What products do you manufacture?", tr:"Harika! Hangi urunleri uretiyorsunuz?"},
       {type:"choice", prompt:"Urunleri tanit:", opts:[
-        {en:"We specialize in custom spring manufacturing — compression, tension, and torsion springs.", tr:"Ozel yay uretiminde uzmanlasiuyoruz.", ok:true},
-        {en:"We make cars.", tr:"Araba yapiyoruz.", ok:false},
-        {en:"We are a trading company.", tr:"Ticaret sirketiyiz.", ok:false}
+        {en:"We specialize in custom springs — compression, tension, and torsion springs in all materials.", tr:"Ozel yaylarda uzmaniz — her malzemede baski, cekme ve burulma yaylari.", ok:1},
+        {en:"We make car parts.", tr:"Araba parcalari yapiyoruz.", ok:0},
+        {en:"We are a trading company.", tr:"Bir ticaret sirketiyiz.", ok:0}
       ]},
-      {type:"them", en:"Interesting! Can I get your catalog?", tr:"Ilginc! Katalogunuzu alabilir miyim?"},
-      {type:"choice", prompt:"Nasil cevap verirsin?", opts:[
-        {en:"Of course! Here is our catalog. We also have samples if you would like to see.", tr:"Tabii ki! Katologumuz buyurun. Isterseniz numunelerimiz de var.", ok:true},
-        {en:"No, we do not have a catalog.", tr:"Hayir, katologumuz yok.", ok:false},
-        {en:"Maybe later.", tr:"Belki sonra.", ok:false}
+      {type:"them", en:"Can I get your catalog?", tr:"Katalog unuzu alabilir miyim?"},
+      {type:"choice", prompt:"Katalog ver:", opts:[
+        {en:"Of course! Here is our catalog. We also have samples if you would like to see.", tr:"Tabii ki! Katalogu muz buyurun. Isterseniz numunelerimiz de mevcut.", ok:1},
+        {en:"Sorry, we are out of catalogs.", tr:"Uzgunu m, katologumuz bitti.", ok:0},
+        {en:"Check our website.", tr:"Web sitemize bakin.", ok:0}
       ]},
-      {type:"them", en:"Excellent! Let me give you my business card.", tr:"Mukemmel! Kartvizitimi vereyim."},
-      {type:"choice", prompt:"Tepkin nedir?", opts:[
-        {en:"Thank you! And here is mine. I will send you a quotation by email.", tr:"Tesekkurler! Iste benimki. Size e-posta ile teklif gonderecegim.", ok:true},
-        {en:"I do not need it.", tr:"Ihtiyacim yok.", ok:false},
-        {en:"Okay, goodbye.", tr:"Tamam, gorusuruz.", ok:false}
+      {type:"them", en:"Thank you! Here is my business card.", tr:"Tesekkurler! Iste benim kartvizitim."},
+      {type:"choice", prompt:"Kartviziti al ve karsilik ver:", opts:[
+        {en:"Thank you! And here is mine. I will send you a quotation by email this week.", tr:"Tesekkurler! Iste benimki. Bu hafta size e-posta ile teklif gonderecegim.", ok:1},
+        {en:"Thanks, goodbye.", tr:"Tesekkurler, gorusuruz.", ok:0},
+        {en:"I do not have a card.", tr:"Kartvizitim yok.", ok:0}
       ]}
     ]
   },
   {
-    id:"technical", title:"Teknik Gorusme", sub:"Musteri teknik detaylar soruyor",
+    title:"Teknik Gorusme",
+    sub:"Musteri teknik detaylar soruyor",
     steps:[
-      {type:"them", en:"We need compression springs for automotive parts. What materials do you work with?", tr:"Otomotiv parcalari icin baski yayina ihtiyacimiz var. Hangi malzemelerle calisiyorsunuz?"},
+      {type:"them", en:"We need compression springs for an automotive application. What materials do you work with?", tr:"Bir otomotiv uygulamasi icin baski yayina ihtiyacimiz var. Hangi malzemelerle calisiyorsunuz?"},
       {type:"choice", prompt:"Malzemeleri acikla:", opts:[
-        {en:"We work with stainless steel, carbon steel, spring steel, and titanium.", tr:"Paslanmaz celik, karbon celigi, yay celigi ve titanyum ile calisiyoruz.", ok:true},
-        {en:"Only plastic.", tr:"Sadece plastik.", ok:false},
-        {en:"I am not sure.", tr:"Emin degilim.", ok:false}
+        {en:"We work with stainless steel, carbon steel, spring steel, silicon chrome, and titanium.", tr:"Paslanmaz celik, karbon celigi, yay celigi, silisyum krom ve titanyum ile calisiyoruz.", ok:1},
+        {en:"Only carbon steel.", tr:"Sadece karbon celigi.", ok:0},
+        {en:"We do not have material options.", tr:"Malzeme secenegimiz yok.", ok:0}
       ]},
-      {type:"them", en:"We need a wire diameter of 2.5mm. Can you achieve that?", tr:"2.5mm tel capina ihtiyacimiz var. Bunu saglayabilir misiniz?"},
-      {type:"choice", prompt:"Cevap ver:", opts:[
-        {en:"Yes, absolutely. We work with wire diameters from 0.5mm to 20mm.", tr:"Evet, kesinlikle. 0.5mm ile 20mm arasindaki tel caplarinda calisabiliriz.", ok:true},
-        {en:"That is too small for us.", tr:"Bu bizim icin cok kucuk.", ok:false},
-        {en:"We do not know.", tr:"Bilmiyoruz.", ok:false}
+      {type:"them", en:"We need a wire diameter of 3mm and a spring rate of 15 N/mm. Is that achievable?", tr:"3mm tel capi ve 15 N/mm yay sabitine ihtiyacimiz var. Bu mumkun mu?"},
+      {type:"choice", prompt:"Teknik cevap ver:", opts:[
+        {en:"Yes, absolutely. Please send the drawing and I will send a full technical offer within 24 hours.", tr:"Evet, kesinlikle. Cizimi gonderin, 24 saat icinde eksiksiz teknik teklif gondereyim.", ok:1},
+        {en:"That is too small for us.", tr:"Bu bizim icin cok kucuk.", ok:0},
+        {en:"I need to check with production.", tr:"Uretimle kontrol etmem lazim.", ok:0}
       ]},
-      {type:"them", en:"What is your tolerance level?", tr:"Tolerans seviyeniz nedir?"},
-      {type:"choice", prompt:"Teknik bilgiyi paylas:", opts:[
-        {en:"Our standard tolerance is plus or minus 0.1mm. For precision parts we can achieve 0.05mm.", tr:"Standart toleransimiz plus minus 0.1mm. Hassas parcalar icin 0.05mm'ye ulasabiliriz.", ok:true},
-        {en:"We do not measure tolerance.", tr:"Toleransi olcmuyoruz.", ok:false},
-        {en:"Very high tolerance.", tr:"Cok yuksek tolerans.", ok:false}
+      {type:"them", en:"What is your tolerance on free length?", tr:"Serbest uzunluk toleransiniz nedir?"},
+      {type:"choice", prompt:"Toleransi acikla:", opts:[
+        {en:"Our standard free length tolerance is plus or minus 0.5mm. For precision parts we can achieve plus or minus 0.1mm.", tr:"Standart serbest uzunluk toleransimiz arti eksi 0.5mm. Hassas parcalar icin 0.1mm'ye inebiliyoruz.", ok:1},
+        {en:"We do not specify tolerance.", tr:"Tolerans belirtmiyoruz.", ok:0},
+        {en:"Our tolerance is very big.", tr:"Toleransimiz cok buyuk.", ok:0}
       ]},
-      {type:"them", en:"What is the lead time for 10,000 pieces?", tr:"10.000 adet icin teslim suresi nedir?"},
+      {type:"them", en:"What is the lead time for a first article sample?", tr:"Ilk numune teslim suresi nedir?"},
       {type:"choice", prompt:"Teslim suresini soyle:", opts:[
-        {en:"For 10,000 pieces, our lead time is approximately 3 to 4 weeks after order confirmation.", tr:"10.000 adet icin siparis onayindan sonra yaklasik 3 ila 4 haftadir.", ok:true},
-        {en:"One year.", tr:"Bir yil.", ok:false},
-        {en:"We cannot do that quantity.", tr:"O miktari yapamayiz.", ok:false}
+        {en:"For first article samples, our lead time is 5 to 7 working days after drawing approval.", tr:"Ilk numune icin teslim suremiz cizim onayindan sonra 5 ila 7 is gunudur.", ok:1},
+        {en:"One month.", tr:"Bir ay.", ok:0},
+        {en:"We do not make samples.", tr:"Numune yapmiyoruz.", ok:0}
       ]}
     ]
   },
   {
-    id:"closing", title:"Siparis Gorusmesi", sub:"Fiyat ve anlasma asamasi",
+    title:"Fiyat Muzakeresi",
+    sub:"Siparis, fiyat ve odeme gorusmesi",
     steps:[
-      {type:"them", en:"Your samples look great. What is the price per piece for 5,000 units?", tr:"Numuneleriniz harika gorunuyor. 5.000 adet icin birim fiyat nedir?"},
-      {type:"choice", prompt:"Fiyat konusunu yonet:", opts:[
-        {en:"The price depends on the material and specifications. I will send you a detailed quotation within 24 hours.", tr:"Fiyat malzeme ve teknik ozelliklere bagli. 24 saat icinde detayli teklif gonderecegim.", ok:true},
-        {en:"I do not know the price.", tr:"Fiyati bilmiyorum.", ok:false},
-        {en:"It is very expensive.", tr:"Cok pahali.", ok:false}
+      {type:"them", en:"Your samples look great. What is the unit price for 10,000 pieces?", tr:"Numuneleriniz cok iyi gorunuyor. 10.000 adet icin birim fiyat nedir?"},
+      {type:"choice", prompt:"Fiyatlandirma yaklasiminizi acikla:", opts:[
+        {en:"The price depends on the material and final specs. I will send a full quotation within 24 hours.", tr:"Fiyat malzeme ve nihai teknik ozelliklere gore degisir. 24 saat icinde tam teklif gonderecegim.", ok:1},
+        {en:"Very expensive, sorry.", tr:"Cok pahali, uzgunum.", ok:0},
+        {en:"I do not know the price.", tr:"Fiyati bilmiyorum.", ok:0}
       ]},
-      {type:"them", en:"Can you give us a discount for a larger order?", tr:"Daha buyuk siparis icin indirim yapabilir misiniz?"},
-      {type:"choice", prompt:"Muzakere et:", opts:[
-        {en:"Yes, for orders above 10,000 pieces we can offer a better price. Let us discuss the details.", tr:"Evet, 10.000 adedin uzerindeki siparislerde daha iyi fiyat sunabiliriz. Detaylari konusalim.", ok:true},
-        {en:"No discount, ever.", tr:"Kesinlikle indirim yok.", ok:false},
-        {en:"I need to ask my manager.", tr:"Mudurume sormam gerekiyor.", ok:false}
+      {type:"them", en:"Our budget is tight. Can you offer a discount?", tr:"Butcemiz kisitli. Indirim yapabilir misiniz?"},
+      {type:"choice", prompt:"Iskonto tekli edin:", opts:[
+        {en:"For 10,000 pieces I can offer 8 percent off the list price. For 50,000 pieces the discount increases to 15 percent.", tr:"10.000 adet icin liste fiyatindan yuzde 8 indirim yapabilirim. 50.000 adette yuzde 15'e cikar.", ok:1},
+        {en:"No discount possible.", tr:"Indirim mumkun degil.", ok:0},
+        {en:"I need to ask my boss.", tr:"Patronuma sormam gerekiyor.", ok:0}
       ]},
-      {type:"them", en:"What payment terms do you accept?", tr:"Hangi odeme kosullarini kabul ediyorsunuz?"},
+      {type:"them", en:"What payment terms do you offer?", tr:"Hangi odeme kosullarini sunuyorsunuz?"},
       {type:"choice", prompt:"Odeme kosullarini acikla:", opts:[
-        {en:"We work with 30 percent deposit and 70 percent before shipment. We also accept letters of credit.", tr:"Yuzde 30 depozito ve yuzde 70 nakliyeden once calisiyoruz. Akreditif de kabul ediyoruz.", ok:true},
-        {en:"Cash only.", tr:"Sadece nakit.", ok:false},
-        {en:"Free of charge.", tr:"Ucretsiz.", ok:false}
+        {en:"We work with 30 percent deposit and 70 percent before shipment. For established customers, we offer net 30 days.", tr:"Yuzde 30 on odeme ve yuzde 70 nakliyeden once calisiyoruz. Kurumsal musterilere 30 gun vade sunuyoruz.", ok:1},
+        {en:"Cash only, full payment upfront.", tr:"Yalnizca nakit, pesin tam odeme.", ok:0},
+        {en:"Free of charge.", tr:"Ucretsiz.", ok:0}
       ]},
-      {type:"them", en:"Great. It was a pleasure talking to you.", tr:"Harika. Sizinle konusmak buyuk bir zevkti."},
-      {type:"choice", prompt:"Kapanis yap:", opts:[
-        {en:"Likewise! I will send the quotation today. I look forward to working together.", tr:"Ben de! Teklifi bugun gonderecegim. Birlikte calismayi dort gozle bekliyorum.", ok:true},
-        {en:"Okay, goodbye.", tr:"Tamam, gorusuruz.", ok:false},
-        {en:"Thank you, nothing more.", tr:"Tesekkurler, baska bir sey yok.", ok:false}
+      {type:"them", en:"That sounds good. When can you start production?", tr:"Kulaga iyi geliyor. Uretime ne zaman baslayabilirsiniz?"},
+      {type:"choice", prompt:"Uretim takvimi ver:", opts:[
+        {en:"We can start production immediately upon receiving your purchase order and deposit. Delivery in 14 working days.", tr:"Satin alma siparisini ve depozitoyu alir almaz uretime baslayabiliriz. 14 is gunu icinde teslimat.", ok:1},
+        {en:"Maybe next year.", tr:"Belki gelecek yil.", ok:0},
+        {en:"We are very busy now.", tr:"Simdi cok mesguluz.", ok:0}
       ]}
     ]
   }
 ];
 
-// ============================================================
-// STORAGE
-// ============================================================
+/* =========================================================
+   STORAGE
+   ========================================================= */
 function lsGet(k, d) {
-  try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e) { return d; }
+  try { var x = localStorage.getItem(k); if (x) { return JSON.parse(x); } } catch(e) {}
+  return d;
 }
 function lsSet(k, v) {
   try { localStorage.setItem(k, JSON.stringify(v)); } catch(e) {}
 }
 
-// ============================================================
-// STATE
-// ============================================================
-var deck = VOCAB.slice();
+/* =========================================================
+   STATE
+   ========================================================= */
+var deck = [];
+var deckCat = "Tumu";
 var cardIdx = 0;
-var known = {};
-var storedKnown = lsGet("knownIds", {});
-if (typeof storedKnown === "object" && storedKnown !== null) { known = storedKnown; }
-var flipped = false;
-var activeFCat = "All";
-var activePCat = "All";
+var knownArr = [];
+var fcFlipped = false;
 
-var quizQs = [];
-var quizIdx = 0;
-var quizScore = 0;
+var phCat = "Tumu";
 
-var dlgData = null;
+var dlgActive = null;
 var dlgStep = 0;
 var dlgRight = 0;
 var dlgTotal = 0;
 
-// ============================================================
-// NAV
-// ============================================================
-function showTab(name) {
-  var tabs = ["flashcards","phrases","dialogue","quiz"];
-  for (var i = 0; i < tabs.length; i++) {
-    var sec = document.getElementById("sec-" + tabs[i]);
-    var btn = document.querySelector('[data-tab="' + tabs[i] + '"]');
-    if (sec) sec.className = "sec" + (tabs[i] === name ? " on" : "");
-    if (btn) btn.className = (tabs[i] === name ? "on" : "");
+var qzQuestions = [];
+var qzIdx = 0;
+var qzScore = 0;
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+function isKnown(idx) {
+  var i;
+  for (i = 0; i < knownArr.length; i++) { if (knownArr[i] === idx) { return true; } }
+  return false;
+}
+function setKnown(idx, val) {
+  var i, tmp;
+  if (val) {
+    if (!isKnown(idx)) { knownArr.push(idx); }
+  } else {
+    tmp = [];
+    for (i = 0; i < knownArr.length; i++) { if (knownArr[i] !== idx) { tmp.push(knownArr[i]); } }
+    knownArr = tmp;
   }
+  lsSet("kn", knownArr);
 }
 
-document.getElementById("nav").addEventListener("click", function(e) {
-  var btn = e.target.closest("[data-tab]");
-  if (btn) showTab(btn.getAttribute("data-tab"));
-});
-
-// ============================================================
-// FLASHCARDS
-// ============================================================
-function getUniqCats(arr, field) {
-  var seen = {}, cats = [];
-  for (var i = 0; i < arr.length; i++) {
-    if (!seen[arr[i][field]]) { seen[arr[i][field]] = 1; cats.push(arr[i][field]); }
+function uniqCats(arr) {
+  var seen = {}, cats = [], i;
+  for (i = 0; i < arr.length; i++) {
+    if (!seen[arr[i].cat]) { seen[arr[i].cat] = 1; cats.push(arr[i].cat); }
   }
   return cats;
 }
 
-function buildFilters(containerId, cats, activeCat, onSelect) {
-  var wrap = document.getElementById(containerId);
-  wrap.innerHTML = "";
-  var all = document.createElement("button");
-  all.className = "fbtn" + (activeCat === "All" ? " on" : "");
-  all.textContent = "Tumu";
-  all.onclick = function() { onSelect("All"); };
-  wrap.appendChild(all);
-  for (var i = 0; i < cats.length; i++) {
-    (function(cat) {
-      var b = document.createElement("button");
-      b.className = "fbtn" + (activeCat === cat ? " on" : "");
-      b.textContent = cat;
-      b.onclick = function() { onSelect(cat); };
-      wrap.appendChild(b);
+function makeEl(tag, cls, txt) {
+  var el = document.createElement(tag);
+  if (cls) { el.className = cls; }
+  if (txt !== undefined && txt !== null) { el.textContent = txt; }
+  return el;
+}
+
+function copyText(txt) {
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(txt);
+      return;
+    }
+    var ta = document.createElement("textarea");
+    ta.value = txt;
+    ta.style.cssText = "position:fixed;left:-999px;top:-999px;opacity:0;";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+  } catch(e) {}
+}
+
+/* =========================================================
+   TAB NAV
+   ========================================================= */
+var TABS = ["fc","ph","dl","qz"];
+function goTab(name) {
+  var i, t;
+  var tbtns = document.getElementById("tabs").children;
+  for (i = 0; i < TABS.length; i++) {
+    t = document.getElementById("pg-" + TABS[i]);
+    if (t) { t.className = "page" + (TABS[i] === name ? " on" : ""); }
+    if (tbtns[i]) { tbtns[i].className = (TABS[i] === name ? "on" : ""); }
+  }
+}
+
+/* =========================================================
+   FLASHCARDS
+   ========================================================= */
+function buildFilters(wrId, arr, active, onSelect) {
+  var wr = document.getElementById(wrId);
+  if (!wr) { return; }
+  wr.innerHTML = "";
+  var cats = uniqCats(arr);
+  var i, btn;
+  btn = makeEl("div", "ftag" + (active === "Tumu" ? " on" : ""), "Tumu");
+  (function(c) { btn.onclick = function() { onSelect(c); }; })("Tumu");
+  wr.appendChild(btn);
+  for (i = 0; i < cats.length; i++) {
+    (function(c) {
+      var b = makeEl("div", "ftag" + (active === c ? " on" : ""), c);
+      b.onclick = function() { onSelect(c); };
+      wr.appendChild(b);
     })(cats[i]);
   }
 }
 
 function buildDeck() {
-  deck = activeFCat === "All" ? VOCAB.slice() : VOCAB.filter(function(v) { return v.cat === activeFCat; });
+  var i;
+  deck = [];
+  for (i = 0; i < V.length; i++) {
+    if (deckCat === "Tumu" || V[i].cat === deckCat) { deck.push(i); }
+  }
   cardIdx = 0;
 }
 
 function showCard() {
-  updateStats();
-  if (deck.length === 0) return;
-  if (cardIdx >= deck.length) cardIdx = 0;
-  var c = deck[cardIdx];
-  flipped = false;
-  document.getElementById("fc").className = "fc";
-  document.getElementById("fc-cat").textContent = c.cat;
-  document.getElementById("fc-cat2").textContent = c.cat;
-  document.getElementById("fc-tr").textContent = c.tr;
-  document.getElementById("fc-ph").textContent = c.ph || "";
-  document.getElementById("fc-en").textContent = c.en;
-  document.getElementById("fc-ex").textContent = c.ex || "";
-  document.getElementById("fc-count").textContent = (cardIdx + 1) + " / " + deck.length;
+  var v, gi;
+  var know = document.getElementById("s-know");
+  var tot  = document.getElementById("s-total");
+  var left = document.getElementById("s-left");
+  var pct  = document.getElementById("s-pct");
+  var bar  = document.getElementById("s-bar");
+  if (know) { know.textContent = knownArr.length; }
+  if (tot)  { tot.textContent  = V.length; }
+  if (left) { left.textContent = V.length - knownArr.length; }
+  var p = V.length > 0 ? Math.round(knownArr.length / V.length * 100) : 0;
+  if (pct) { pct.textContent = p + "%"; }
+  if (bar) { bar.style.width = p + "%"; }
+
+  if (deck.length === 0) { return; }
+  if (cardIdx >= deck.length) { cardIdx = 0; }
+  gi = deck[cardIdx];
+  v = V[gi];
+  fcFlipped = false;
+  var card = document.getElementById("fc-card");
+  if (card) { card.className = "card3d"; }
+  var w = document.getElementById("fc-word");   if (w)  { w.textContent  = v.tr; }
+  var e = document.getElementById("fc-en");     if (e)  { e.textContent  = v.en; }
+  var ph= document.getElementById("fc-ph");     if (ph) { ph.textContent = v.ph || ""; }
+  var ex= document.getElementById("fc-ex");     if (ex) { ex.textContent = v.ex || ""; }
+  var c = document.getElementById("fc-cat");    if (c)  { c.textContent  = v.cat; }
+  var c2= document.getElementById("fc-cat2");   if (c2) { c2.textContent = v.cat; }
+  var cnt = document.getElementById("fc-count"); if (cnt) { cnt.textContent = (cardIdx + 1) + " / " + deck.length; }
 }
 
 function flipCard() {
-  flipped = !flipped;
-  document.getElementById("fc").className = "fc" + (flipped ? " flip" : "");
+  fcFlipped = !fcFlipped;
+  var card = document.getElementById("fc-card");
+  if (card) { card.className = "card3d" + (fcFlipped ? " flipped" : ""); }
 }
 
-function markCard(isKnown) {
-  var globalIdx = VOCAB.indexOf(deck[cardIdx]);
-  if (isKnown) { known[globalIdx] = 1; } else { delete known[globalIdx]; }
-  lsSet("knownIds", known);
+function markCard(val) {
+  if (deck.length === 0) { return; }
+  var gi = deck[cardIdx];
+  setKnown(gi, val === 1);
   cardIdx++;
   showCard();
 }
 
 function resetCards() {
-  known = {};
-  lsSet("knownIds", {});
+  knownArr = [];
+  lsSet("kn", []);
   cardIdx = 0;
   showCard();
 }
 
-function updateStats() {
-  var total = VOCAB.length;
-  var n = Object.keys(known).length;
-  document.getElementById("s-know").textContent = n;
-  document.getElementById("s-total").textContent = total;
-  document.getElementById("s-left").textContent = total - n;
-  var pct = Math.round(n / total * 100);
-  document.getElementById("s-pct").textContent = pct + "%";
-  document.getElementById("s-bar").style.width = pct + "%";
-}
-
 function selectFCat(cat) {
-  activeFCat = cat;
-  buildFilters("fc-filters", getUniqCats(VOCAB, "cat"), activeFCat, selectFCat);
+  deckCat = cat;
+  buildFilters("fc-filters", V, deckCat, selectFCat);
   buildDeck();
   showCard();
 }
 
-// ============================================================
-// PHRASES
-// ============================================================
+/* =========================================================
+   PHRASES
+   ========================================================= */
 function renderPhrases() {
-  var list = document.getElementById("ph-list");
-  list.innerHTML = "";
-  var data = activePCat === "All" ? PHRASES : PHRASES.filter(function(p) { return p.cat === activePCat; });
-  for (var i = 0; i < data.length; i++) {
-    (function(p, idx) {
-      var div = document.createElement("div");
-      div.className = "phrase";
-
-      var enEl = document.createElement("div");
-      enEl.className = "phrase-en";
-      enEl.textContent = p.en;
-      div.appendChild(enEl);
-
-      var trEl = document.createElement("div");
-      trEl.className = "phrase-tr";
-      trEl.id = "pt-" + idx;
-      trEl.textContent = p.tr;
-      div.appendChild(trEl);
-
-      var acts = document.createElement("div");
-      acts.className = "phrase-acts";
-
-      var showBtn = document.createElement("button");
-      showBtn.className = "pbtn show";
-      showBtn.textContent = "TR Goster";
+  var wr = document.getElementById("ph-list");
+  if (!wr) { return; }
+  wr.innerHTML = "";
+  var i, p, data = [];
+  for (i = 0; i < P.length; i++) {
+    if (phCat === "Tumu" || P[i].cat === phCat) { data.push({p:P[i], idx:i}); }
+  }
+  for (i = 0; i < data.length; i++) {
+    (function(p, localIdx) {
+      var box = makeEl("div", "phr");
+      var en  = makeEl("div", "phr-en", p.en);
+      var tr  = makeEl("div", "phr-tr", p.tr);
+      tr.id = "ptr" + localIdx;
+      var acts = makeEl("div", "phr-acts");
+      var showBtn = makeEl("button", "phr-btn pbshow", "TR Goster");
       showBtn.onclick = function() {
-        var el = document.getElementById("pt-" + idx);
-        el.className = el.className === "phrase-tr" ? "phrase-tr on" : "phrase-tr";
-        showBtn.textContent = el.className === "phrase-tr" ? "TR Goster" : "TR Gizle";
+        var el = document.getElementById("ptr" + localIdx);
+        if (!el) { return; }
+        if (el.className === "phr-tr") {
+          el.className = "phr-tr on";
+          showBtn.textContent = "TR Gizle";
+        } else {
+          el.className = "phr-tr";
+          showBtn.textContent = "TR Goster";
+        }
+      };
+      var copyBtn = makeEl("button", "phr-btn pbcopy", "Kopyala");
+      var copiedEl = makeEl("div", "phr-copied", "Kopyalandi!");
+      copiedEl.id = "cpy" + localIdx;
+      copyBtn.onclick = function() {
+        copyText(p.en);
+        var cel = document.getElementById("cpy" + localIdx);
+        if (cel) {
+          cel.className = "phr-copied on";
+          setTimeout(function() { cel.className = "phr-copied"; }, 1800);
+        }
       };
       acts.appendChild(showBtn);
-
-      var copyBtn = document.createElement("button");
-      copyBtn.className = "pbtn copy";
-      copyBtn.textContent = "Kopyala";
-      var copiedEl = document.createElement("div");
-      copiedEl.className = "copied";
-      copiedEl.id = "cp-" + idx;
-      copiedEl.textContent = "Kopyalandi!";
-      copyBtn.onclick = function() {
-        try {
-          navigator.clipboard.writeText(p.en).then(function() {
-            copiedEl.className = "copied on";
-            setTimeout(function() { copiedEl.className = "copied"; }, 1800);
-          }).catch(function() {});
-        } catch(e) {}
-      };
       acts.appendChild(copyBtn);
-      div.appendChild(acts);
-      div.appendChild(copiedEl);
-      list.appendChild(div);
-    })(data[i], i);
+      box.appendChild(en);
+      box.appendChild(tr);
+      box.appendChild(acts);
+      box.appendChild(copiedEl);
+      wr.appendChild(box);
+    })(data[i].p, i);
   }
 }
 
 function selectPCat(cat) {
-  activePCat = cat;
-  buildFilters("ph-filters", getUniqCats(PHRASES, "cat"), activePCat, selectPCat);
+  phCat = cat;
+  buildFilters("ph-filters", P, phCat, selectPCat);
   renderPhrases();
 }
 
-// ============================================================
-// DIALOGUE
-// ============================================================
-function renderScenarios() {
-  var wrap = document.getElementById("dlg-scenarios");
-  wrap.innerHTML = "";
-  document.getElementById("dlg-area").innerHTML = "";
-  for (var i = 0; i < DIALOGUES.length; i++) {
+/* =========================================================
+   DIALOGUE
+   ========================================================= */
+function renderScenes() {
+  var wr = document.getElementById("dlg-scenes");
+  if (!wr) { return; }
+  wr.innerHTML = "";
+  document.getElementById("dlg-chat").innerHTML    = "";
+  document.getElementById("dlg-choices").innerHTML = "";
+  document.getElementById("dlg-result").className  = "dlg-result";
+  var i;
+  for (i = 0; i < D.length; i++) {
     (function(dlg) {
-      var btn = document.createElement("button");
-      btn.className = "dlg-btn";
-      var title = document.createElement("div");
-      title.textContent = dlg.title;
-      var sub = document.createElement("div");
-      sub.className = "dsub";
-      sub.textContent = dlg.sub;
-      btn.appendChild(title);
-      btn.appendChild(sub);
+      var btn = makeEl("div", "dlg-scene-btn");
+      btn.appendChild(makeEl("div", null, dlg.title));
+      btn.appendChild(makeEl("div", "dlg-sub-lbl", dlg.sub));
       btn.onclick = function() { startDlg(dlg); };
-      wrap.appendChild(btn);
-    })(DIALOGUES[i]);
+      wr.appendChild(btn);
+    })(D[i]);
   }
 }
 
 function startDlg(dlg) {
-  dlgData = dlg;
+  var i;
+  dlgActive = dlg;
   dlgStep = 0;
   dlgRight = 0;
   dlgTotal = 0;
-  for (var i = 0; i < dlg.steps.length; i++) {
-    if (dlg.steps[i].type === "choice") dlgTotal++;
+  for (i = 0; i < dlg.steps.length; i++) {
+    if (dlg.steps[i].type === "choice") { dlgTotal++; }
   }
-  document.getElementById("dlg-scenarios").innerHTML = "";
-  var area = document.getElementById("dlg-area");
-  area.innerHTML = "";
+  document.getElementById("dlg-scenes").innerHTML  = "";
+  document.getElementById("dlg-chat").innerHTML    = "";
+  document.getElementById("dlg-choices").innerHTML = "";
+  document.getElementById("dlg-result").className  = "dlg-result";
 
-  var titleCard = document.createElement("div");
-  titleCard.style.cssText = "background:#fff;border-radius:13px;padding:14px;margin-bottom:12px;box-shadow:0 4px 20px rgba(26,58,92,0.12);";
-  var t = document.createElement("div");
-  t.style.cssText = "font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:3px;";
-  t.textContent = dlg.title;
-  var s = document.createElement("div");
-  s.style.cssText = "font-size:13px;color:var(--muted);";
-  s.textContent = dlg.sub;
-  titleCard.appendChild(t); titleCard.appendChild(s);
-  area.appendChild(titleCard);
-
-  var chat = document.createElement("div");
-  chat.className = "chat";
-  chat.id = "dlg-chat";
-  area.appendChild(chat);
-
-  var choices = document.createElement("div");
-  choices.id = "dlg-choices";
-  area.appendChild(choices);
-
-  var res = document.createElement("div");
-  res.className = "dlg-res";
-  res.id = "dlg-res";
-  area.appendChild(res);
-
-  nextDlgStep();
+  var hdr = makeEl("div", "phr");
+  hdr.appendChild(makeEl("div", "phr-en", dlg.title));
+  hdr.appendChild(makeEl("div", "phr-tr", dlg.sub));
+  document.getElementById("dlg-chat").appendChild(hdr);
+  nextStep();
 }
 
 function addBubble(who, en, tr) {
   var chat = document.getElementById("dlg-chat");
-  var msg = document.createElement("div");
-  msg.className = "msg " + who;
-  var av = document.createElement("div");
-  av.className = "avatar";
-  av.textContent = who === "them" ? "👤" : "💼";
-  var bWrap = document.createElement("div");
-  var bub = document.createElement("div");
-  bub.className = "bubble";
-  bub.textContent = en;
-  var btr = document.createElement("div");
-  btr.className = "btr";
-  btr.textContent = tr;
+  if (!chat) { return; }
+  var msg = makeEl("div", "chat-msg " + who);
+  var av  = makeEl("div", "chat-av", who === "them" ? "👤" : "💼");
+  var bWrap = makeEl("div");
+  var bub = makeEl("div", "chat-bubble", en);
+  var btr = makeEl("div", "chat-tr", tr);
   bub.appendChild(btr);
   bWrap.appendChild(bub);
   msg.appendChild(av);
   msg.appendChild(bWrap);
   chat.appendChild(msg);
-  msg.scrollIntoView(false);
 }
 
-function nextDlgStep() {
-  if (!dlgData || dlgStep >= dlgData.steps.length) {
-    showDlgResult();
-    return;
-  }
-  var step = dlgData.steps[dlgStep];
+function nextStep() {
+  if (!dlgActive || dlgStep >= dlgActive.steps.length) { endDlg(); return; }
+  var step = dlgActive.steps[dlgStep];
   if (step.type === "them") {
     addBubble("them", step.en, step.tr);
     dlgStep++;
-    setTimeout(nextDlgStep, 500);
+    setTimeout(nextStep, 500);
   } else if (step.type === "choice") {
-    renderChoices(step);
+    showChoices(step);
   }
 }
 
-function renderChoices(step) {
-  var wrap = document.getElementById("dlg-choices");
-  wrap.innerHTML = "";
-  var label = document.createElement("div");
-  label.className = "choice-label";
-  label.textContent = step.prompt;
-  wrap.appendChild(label);
-  for (var i = 0; i < step.opts.length; i++) {
+function showChoices(step) {
+  var wr = document.getElementById("dlg-choices");
+  if (!wr) { return; }
+  wr.innerHTML = "";
+  wr.appendChild(makeEl("div", "choice-label", step.prompt));
+  var i;
+  for (i = 0; i < step.opts.length; i++) {
     (function(opt) {
-      var btn = document.createElement("button");
-      btn.className = "cbtn";
-      btn.textContent = opt.en;
-      btn.onclick = function() { pickOpt(btn, opt, step, wrap); };
-      wrap.appendChild(btn);
+      var btn = makeEl("button", "choice-opt", opt.en);
+      btn.onclick = function() { pickChoice(btn, opt, step, wr); };
+      wr.appendChild(btn);
     })(step.opts[i]);
   }
 }
 
-function pickOpt(btn, opt, step, wrap) {
-  var btns = wrap.querySelectorAll(".cbtn");
-  for (var i = 0; i < btns.length; i++) { btns[i].onclick = null; }
-  btn.className = "cbtn " + (opt.ok ? "correct" : "wrong");
+function pickChoice(btn, opt, step, wr) {
+  var btns = wr.querySelectorAll(".choice-opt");
+  var i, j;
+  for (i = 0; i < btns.length; i++) { btns[i].onclick = null; }
+  btn.className = "choice-opt " + (opt.ok ? "correct" : "wrong");
   if (!opt.ok) {
-    for (var j = 0; j < step.opts.length; j++) {
+    for (j = 0; j < step.opts.length; j++) {
       if (step.opts[j].ok) {
-        for (var k = 0; k < btns.length; k++) {
-          if (btns[k].textContent === step.opts[j].en) btns[k].className = "cbtn correct";
+        for (i = 0; i < btns.length; i++) {
+          if (btns[i].textContent === step.opts[j].en) {
+            btns[i].className = "choice-opt correct";
+          }
         }
       }
     }
@@ -764,119 +818,135 @@ function pickOpt(btn, opt, step, wrap) {
   dlgStep++;
   setTimeout(function() {
     document.getElementById("dlg-choices").innerHTML = "";
-    nextDlgStep();
+    nextStep();
   }, 900);
 }
 
-function showDlgResult() {
-  var res = document.getElementById("dlg-res");
+function endDlg() {
+  var res = document.getElementById("dlg-result");
+  if (!res) { return; }
   var pct = dlgTotal > 0 ? Math.round(dlgRight / dlgTotal * 100) : 0;
   var title = pct === 100 ? "Mukemmel!" : pct >= 60 ? "Iyi is!" : "Pratik yap!";
-  var sub = dlgRight + " / " + dlgTotal + " dogru — %" + pct;
-
-  var h = document.createElement("h3"); h.textContent = title;
-  var p = document.createElement("p"); p.textContent = sub;
-  var b = document.createElement("button");
-  b.className = "btn-back";
-  b.textContent = "Senaryolara Don";
-  b.onclick = function() { renderScenarios(); };
-
   res.innerHTML = "";
-  res.appendChild(h); res.appendChild(p); res.appendChild(b);
-  res.className = "dlg-res on";
-  res.scrollIntoView(false);
+  res.appendChild(makeEl("h3", null, title));
+  res.appendChild(makeEl("p",  null, dlgRight + " / " + dlgTotal + " dogru — %" + pct));
+  var b = makeEl("button", "btn-back", "Senaryolara Don");
+  b.onclick = function() { renderScenes(); };
+  res.appendChild(b);
+  res.className = "dlg-result on";
 }
 
-// ============================================================
-// QUIZ
-// ============================================================
+/* =========================================================
+   QUIZ
+   ========================================================= */
 function startQuiz() {
-  document.getElementById("quiz-start").style.display = "none";
-  document.getElementById("quiz-result").className = "qresult";
-  document.getElementById("quiz-active").style.display = "block";
+  document.getElementById("qz-start").style.display  = "none";
+  document.getElementById("qz-active").style.display = "block";
+  document.getElementById("qz-result").className     = "qresult";
 
-  var shuffled = VOCAB.slice().sort(function() { return Math.random() - 0.5; }).slice(0, 10);
-  quizQs = [];
-  for (var i = 0; i < shuffled.length; i++) {
-    var item = shuffled[i];
-    var wrongs = VOCAB.filter(function(v) { return v !== item; }).sort(function() { return Math.random() - 0.5; }).slice(0, 3);
-    var opts = [item].concat(wrongs).sort(function() { return Math.random() - 0.5; });
-    quizQs.push({item: item, opts: opts});
+  var pool = [], i, item, wrongs, opts, tmp;
+  for (i = 0; i < V.length; i++) { pool.push(i); }
+  pool.sort(function() { return Math.random() - 0.5; });
+  pool = pool.slice(0, 10);
+
+  qzQuestions = [];
+  for (i = 0; i < pool.length; i++) {
+    item = pool[i];
+    wrongs = [];
+    var j, k;
+    var allOther = [];
+    for (k = 0; k < V.length; k++) { if (k !== item) { allOther.push(k); } }
+    allOther.sort(function() { return Math.random() - 0.5; });
+    wrongs = allOther.slice(0, 3);
+    opts = [item].concat(wrongs);
+    opts.sort(function() { return Math.random() - 0.5; });
+    qzQuestions.push({ans: item, opts: opts});
   }
-  quizIdx = 0;
-  quizScore = 0;
+  qzIdx = 0;
+  qzScore = 0;
   showQuizQ();
 }
 
 function showQuizQ() {
-  if (quizIdx >= quizQs.length) { showQuizResult(); return; }
-  var q = quizQs[quizIdx];
-  document.getElementById("q-label").textContent = "Soru " + (quizIdx + 1) + "/10";
-  document.getElementById("q-score").textContent = quizScore + " dogru";
-  document.getElementById("q-bar").style.width = ((quizIdx + 1) * 10) + "%";
-  document.getElementById("q-q").textContent = "Turkce karsiligi nedir?";
-  document.getElementById("q-tr").textContent = "→  " + q.item.en;
-  var opts = document.getElementById("q-opts");
-  opts.innerHTML = "";
-  for (var i = 0; i < q.opts.length; i++) {
-    (function(opt, qi) {
-      var btn = document.createElement("button");
-      btn.className = "qopt";
-      btn.textContent = opt.tr;
-      btn.onclick = function() { answerQuiz(btn, opt, qi); };
-      opts.appendChild(btn);
-    })(q.opts[i], i);
+  if (qzIdx >= qzQuestions.length) { endQuiz(); return; }
+  var q = qzQuestions[qzIdx];
+  document.getElementById("qz-label").textContent = "Soru " + (qzIdx + 1) + "/10";
+  document.getElementById("qz-score").textContent = qzScore + " dogru";
+  document.getElementById("qz-bar").style.width   = ((qzIdx + 1) * 10) + "%";
+  document.getElementById("qz-q").textContent   = "Ingilizce karsiligi nedir?";
+  document.getElementById("qz-qsub").textContent = "-> " + V[q.ans].tr;
+  var optsWr = document.getElementById("qz-opts");
+  optsWr.innerHTML = "";
+  var i;
+  for (i = 0; i < q.opts.length; i++) {
+    (function(optIdx) {
+      var btn = makeEl("button", "qopt", V[optIdx].en);
+      btn.onclick = function() { answerQuiz(btn, optIdx, q); };
+      optsWr.appendChild(btn);
+    })(q.opts[i]);
   }
 }
 
-function answerQuiz(btn, opt, qi) {
-  var q = quizQs[quizIdx];
-  var allBtns = document.getElementById("q-opts").querySelectorAll(".qopt");
-  for (var i = 0; i < allBtns.length; i++) { allBtns[i].onclick = null; }
-  var correct = opt === q.item;
+function answerQuiz(btn, optIdx, q) {
+  var all = document.getElementById("qz-opts").querySelectorAll(".qopt");
+  var i;
+  for (i = 0; i < all.length; i++) { all[i].onclick = null; }
+  var correct = optIdx === q.ans;
   btn.className = "qopt " + (correct ? "correct" : "wrong");
   if (!correct) {
-    for (var j = 0; j < allBtns.length; j++) {
-      if (allBtns[j].textContent === q.item.tr) allBtns[j].className = "qopt correct";
+    for (i = 0; i < all.length; i++) {
+      if (all[i].textContent === V[q.ans].en) { all[i].className = "qopt correct"; }
     }
   } else {
-    quizScore++;
-    document.getElementById("q-score").textContent = quizScore + " dogru";
+    qzScore++;
+    document.getElementById("qz-score").textContent = qzScore + " dogru";
   }
-  quizIdx++;
+  qzIdx++;
   setTimeout(showQuizQ, 1100);
 }
 
-function showQuizResult() {
-  document.getElementById("quiz-active").style.display = "none";
-  document.getElementById("quiz-start").style.display = "block";
-  document.getElementById("r-score").textContent = quizScore;
-  var msgs = [[9,"Mukemmel!","Neredeyse tam puan!"],[7,"Cok iyi!","Devam et!"],[5,"Iyi baslangic!","Birkac kelime daha ezberle."],[0,"Pratik yap!","Kelimeler bolumunden baslayalim."]];
-  var found = msgs[msgs.length - 1];
-  for (var i = 0; i < msgs.length; i++) { if (quizScore >= msgs[i][0]) { found = msgs[i]; break; } }
-  document.getElementById("r-msg").textContent = found[1];
-  document.getElementById("r-sub").textContent = found[2];
-  document.getElementById("quiz-result").className = "qresult on";
+function endQuiz() {
+  document.getElementById("qz-active").style.display = "none";
+  document.getElementById("qz-start").style.display  = "block";
+  document.getElementById("qz-rscore").textContent = qzScore;
+  var msgs = [
+    [9, "Mukemmel!", "Neredeyse tam puan, devam et!"],
+    [7, "Cok iyi!", "Az kaldi, biraz daha pratik yap!"],
+    [5, "Iyi baslangic!", "Eksik kelimeleri flashcard ile tekrar et."],
+    [0, "Pratik yap!", "Kelimeler bolumunden baslayalim."]
+  ];
+  var i, found = msgs[msgs.length - 1];
+  for (i = 0; i < msgs.length; i++) { if (qzScore >= msgs[i][0]) { found = msgs[i]; break; } }
+  document.getElementById("qz-rmsg").textContent = found[1];
+  document.getElementById("qz-rsub").textContent = found[2];
+  document.getElementById("qz-result").className = "qresult on";
 }
 
-// ============================================================
-// INIT — script is at bottom of body so DOM is already ready
-// ============================================================
-function init() {
-  buildFilters("fc-filters", getUniqCats(VOCAB, "cat"), activeFCat, selectFCat);
-  buildDeck();
-  showCard();
-  buildFilters("ph-filters", getUniqCats(PHRASES, "cat"), activePCat, selectPCat);
-  renderPhrases();
-  renderScenarios();
+/* =========================================================
+   INIT
+   ========================================================= */
+var appStarted = false;
+
+function startApp() {
+  if (appStarted) { return; }
+  appStarted = true;
+  try {
+    var stored = lsGet("kn", []);
+    if (stored && stored.length !== undefined) { knownArr = stored; }
+    buildFilters("fc-filters", V, deckCat, selectFCat);
+    buildDeck();
+    showCard();
+    buildFilters("ph-filters", P, phCat, selectPCat);
+    renderPhrases();
+    renderScenes();
+  } catch(e) {
+    var w = document.getElementById("fc-word");
+    if (w) { w.textContent = "Hata: " + (e.message || String(e)); }
+  }
 }
-var _inited = false;
-function safeInit() { if (_inited) return; _inited = true; init(); }
-// script is at bottom of body — DOM is ready, call directly
-try { safeInit(); } catch(e) {}
-// fallbacks for iOS Files viewer which may delay execution
-document.addEventListener("DOMContentLoaded", function() { try { safeInit(); } catch(e) {} });
-window.addEventListener("load", function() { try { safeInit(); } catch(e) {} });
+
+document.addEventListener("DOMContentLoaded", startApp);
+startApp();
 </script>
 </body>
 </html>
