@@ -860,16 +860,23 @@ function showQuizResult() {
 }
 
 // ============================================================
-// INIT
+// INIT — script is at bottom of body so DOM is already ready
 // ============================================================
-window.onload = function() {
+function init() {
   buildFilters("fc-filters", getUniqCats(VOCAB, "cat"), activeFCat, selectFCat);
   buildDeck();
   showCard();
   buildFilters("ph-filters", getUniqCats(PHRASES, "cat"), activePCat, selectPCat);
   renderPhrases();
   renderScenarios();
-};
+}
+var _inited = false;
+function safeInit() { if (_inited) return; _inited = true; init(); }
+// script is at bottom of body — DOM is ready, call directly
+try { safeInit(); } catch(e) {}
+// fallbacks for iOS Files viewer which may delay execution
+document.addEventListener("DOMContentLoaded", function() { try { safeInit(); } catch(e) {} });
+window.addEventListener("load", function() { try { safeInit(); } catch(e) {} });
 </script>
 </body>
 </html>
