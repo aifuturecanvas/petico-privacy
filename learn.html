@@ -128,6 +128,30 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 .rsub { font-size:14px; color:#6b7f93; margin-bottom:20px; }
 .rbtn { background:#1a3a5c; color:#fff; border:none; border-radius:11px; padding:13px 26px; font-size:14px; font-weight:700; cursor:pointer; margin:0 4px; }
 .rbtn.sec { background:#d0dce8; color:#6b7f93; }
+
+/* Pratik */
+.pr-sentence-box { background:linear-gradient(135deg,#1a3a5c,#2a5a8c); color:#fff; border-radius:16px; padding:22px; margin-bottom:14px; box-shadow:0 4px 18px rgba(26,58,92,0.18); }
+.pr-sentence-box .pr-label { font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; opacity:0.7; margin-bottom:8px; }
+.pr-sentence-box .pr-tr { font-size:17px; font-weight:600; line-height:1.5; }
+.pr-input { width:100%; border:2px solid #d0dce8; border-radius:12px; padding:14px; font-size:15px; font-family:inherit; resize:none; outline:none; background:#fff; color:#1a2a3a; margin-bottom:10px; min-height:80px; }
+.pr-input:focus { border-color:#1a3a5c; }
+.btn-check { width:100%; padding:14px; background:#e07b2a; color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; margin-bottom:16px; }
+.btn-check:active { opacity:0.8; }
+.pr-result { display:none; }
+.pr-result.on { display:block; }
+.pr-score-wrap { text-align:center; margin-bottom:16px; }
+.pr-score-num { font-size:42px; font-weight:800; }
+.pr-score-lbl { font-size:13px; color:#6b7f93; margin-top:2px; }
+.pr-section-label { font-size:11px; font-weight:700; color:#6b7f93; text-transform:uppercase; letter-spacing:0.4px; margin-bottom:6px; }
+.pr-user-box { background:#f0f4f8; border-radius:10px; padding:12px; margin-bottom:14px; font-size:14px; line-height:1.6; color:#1a2a3a; }
+.pr-correct-box { background:#fff; border:2px solid #d0dce8; border-radius:10px; padding:12px; margin-bottom:14px; font-size:14px; line-height:1.8; }
+.pr-tip-box { background:#fff8f2; border-left:3px solid #e07b2a; border-radius:0 10px 10px 0; padding:12px; margin-bottom:16px; }
+.pr-tip-title { font-size:11px; font-weight:700; color:#e07b2a; margin-bottom:4px; }
+.pr-tip-text { font-size:13px; color:#1a2a3a; line-height:1.55; }
+.btn-next-pr { width:100%; padding:14px; background:#1a3a5c; color:#fff; border:none; border-radius:12px; font-size:15px; font-weight:700; cursor:pointer; }
+.btn-next-pr:active { opacity:0.8; }
+.word-ok  { color:#1a7a46; font-weight:600; background:#e8f8f0; border-radius:3px; padding:1px 3px; }
+.word-bad { color:#c0392b; font-weight:600; background:#fdecea; border-radius:3px; padding:1px 3px; }
 </style>
 </head>
 <body onload="startApp()">
@@ -138,8 +162,9 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 </div>
 
 <div id="tabs">
-  <div class="on"    onclick="goTab('fc')"><span>&#127183;</span>Kelimeler</div>
-  <div               onclick="goTab('ph')"><span>&#128172;</span>Cumleler</div>
+  <div class="on"    onclick="goTab('fc')"><span>&#127183;</span>Kelime</div>
+  <div               onclick="goTab('ph')"><span>&#128172;</span>Cumle</div>
+  <div               onclick="goTab('pr')"><span>&#9999;</span>Pratik</div>
   <div               onclick="goTab('dl')"><span>&#129309;</span>Diyalog</div>
   <div               onclick="goTab('qz')"><span>&#127919;</span>Quiz</div>
 </div>
@@ -164,12 +189,12 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
       <div class="cface cfront">
         <div class="ctag" id="fc-cat">—</div>
         <div class="cword" id="fc-word">Yukleniyor</div>
-        <div class="csub"  id="fc-ph"></div>
         <div class="chint">Cevirmek icin dokun</div>
       </div>
       <div class="cface cback">
         <div class="ctag" id="fc-cat2">—</div>
         <div class="cword" id="fc-en">—</div>
+        <div class="csub"  id="fc-ph"></div>
         <div class="csub"  id="fc-ex"></div>
         <div class="chint">Geri cevirmek icin dokun</div>
       </div>
@@ -188,6 +213,21 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
   <div class="psub">Fuarda kullanabilecegin ifadeler</div>
   <div class="frow" id="ph-filters"></div>
   <div id="ph-list"></div>
+</div>
+
+<!-- PRATIK -->
+<div id="pg-pr" class="page">
+  <div class="ptitle">Ceviri Pratigi</div>
+  <div class="psub">Turkce cumlеyi oku, Ingilizceyi yaz</div>
+  <div class="frow" id="pr-filters"></div>
+  <div id="pr-count" style="text-align:center;font-size:12px;color:#6b7f93;margin-bottom:10px;">— / —</div>
+  <div class="pr-sentence-box">
+    <div class="pr-label">Turkce — Ingilizceye cevir:</div>
+    <div class="pr-tr" id="pr-tr">Yukleniyor...</div>
+  </div>
+  <textarea class="pr-input" id="pr-input" placeholder="Ingilizce cevirinizi buraya yazin..." rows="3"></textarea>
+  <button class="btn-check" onclick="checkPr()">Kontrol Et</button>
+  <div class="pr-result" id="pr-result"></div>
 </div>
 
 <!-- DIALOGUE -->
@@ -554,7 +594,7 @@ function copyText(txt) {
 /* =========================================================
    TAB NAV
    ========================================================= */
-var TABS = ["fc","ph","dl","qz"];
+var TABS = ["fc","ph","pr","dl","qz"];
 function goTab(name) {
   var i, t;
   var tbtns = document.getElementById("tabs").children;
@@ -822,6 +862,154 @@ function pickChoice(btn, opt, step, wr) {
   }, 900);
 }
 
+/* =========================================================
+   PRATIK — Ceviri Pratigi
+   ========================================================= */
+var prPool = [];
+var prIdx = 0;
+var prCat = "Tumu";
+var prDone = false;
+
+var GRAMMAR_TIPS = [
+  "Ingilizce'de her cumlenin bir oznesi (subject) olmali. Turkce'de ozne duşebilir ama Ingilizce'de duşemez. Ornek: 'We produce springs' → ozne 'We' zorunlu.",
+  "'will' gelecegi ifade eder ve fiilden once gelir: 'I will send' = gonderecegim. Kısaltma: I'll, we'll, you'll.",
+  "Artikel kullanimi: 'a' sessiz harften once (a spring), 'an' sesli harften once (an order), 'the' ozgul seyler icin (the catalog we discussed).",
+  "Is Ingilizce'sinde 'I will...' resmi, 'I'll...' daha samimi. Fuarda 'I will send you a quotation' kullan.",
+  "Soru cumlelerinde yardimci fiil one alinir: 'Do you need...?', 'Can you send...?', 'Would you like...?' seklinde.",
+  "'for' kullanimi: amac icin → 'springs for automotive use'. 'of' kullanimi: iliski icin → 'certificate of origin'.",
+  "Cogul: spring→springs, piece→pieces, week→weeks. Sayilamayan isimler tekil kalir: steel, quality, information.",
+  "Kibar istek: 'Could you send?' → 'Can you send?'dan daha kibarca. Is gorusmelerinde 'could' ve 'would' tercih et.",
+  "'Please' cumle basina veya sonuna gelir: 'Please send us your drawing.' veya 'Send us your drawing, please.'",
+  "Zaman ifadeleri: 'within 24 hours' = 24 saat icinde, 'by Friday' = Cuma'ya kadar, 'in two weeks' = iki hafta icinde.",
+  "Passive voice (edilgen): 'Springs are tested' = Yaylar test edilir. Ingilizce'de pasif yapi iş mektuplarında yaygın.",
+  "Baglac kullanimi: 'and' (ve), 'but' (ama), 'however' (ancak), 'therefore' (bu nedenle) cumleleri birlestirir."
+];
+var prTipIdx = 0;
+
+function getGrammarTip(en) {
+  var low = en.toLowerCase();
+  if (low.indexOf("will ") !== -1 || low.indexOf("i'll") !== -1) { return GRAMMAR_TIPS[1]; }
+  if (low.indexOf("could") !== -1 || low.indexOf("would you") !== -1) { return GRAMMAR_TIPS[7]; }
+  if (low.indexOf("please") !== -1) { return GRAMMAR_TIPS[8]; }
+  if (low.indexOf(" for ") !== -1 && low.indexOf(" of ") === -1) { return GRAMMAR_TIPS[5]; }
+  if (low.indexOf("within") !== -1 || low.indexOf(" by ") !== -1) { return GRAMMAR_TIPS[9]; }
+  if (low.indexOf(" a ") !== -1 || low.indexOf(" an ") !== -1 || low.indexOf(" the ") !== -1) { return GRAMMAR_TIPS[2]; }
+  if (low.indexOf("do you") !== -1 || low.indexOf("can you") !== -1 || low.indexOf("are you") !== -1) { return GRAMMAR_TIPS[4]; }
+  if (low.indexOf(" are ") !== -1 || low.indexOf(" is ") !== -1) { return GRAMMAR_TIPS[10]; }
+  prTipIdx = (prTipIdx + 1) % GRAMMAR_TIPS.length;
+  return GRAMMAR_TIPS[prTipIdx];
+}
+
+function normWords(s) {
+  var words = s.toLowerCase().replace(/[.,!?;:'"]/g, "").trim().split(/\s+/);
+  var out = [], i;
+  for (i = 0; i < words.length; i++) { if (words[i].length > 0) { out.push(words[i]); } }
+  return out;
+}
+
+function calcScore(user, correct) {
+  var uWords = normWords(user);
+  var cWords = normWords(correct);
+  if (cWords.length === 0) { return 0; }
+  var remaining = uWords.slice();
+  var matched = 0, i, idx;
+  for (i = 0; i < cWords.length; i++) {
+    idx = remaining.indexOf(cWords[i]);
+    if (idx !== -1) { matched++; remaining.splice(idx, 1); }
+  }
+  return Math.round(matched / cWords.length * 100);
+}
+
+function buildPrPool() {
+  var i;
+  prPool = [];
+  for (i = 0; i < P.length; i++) {
+    if (prCat === "Tumu" || P[i].cat === prCat) { prPool.push(i); }
+  }
+  prPool.sort(function() { return Math.random() - 0.5; });
+  prIdx = 0;
+}
+
+function showPrSentence() {
+  if (prPool.length === 0) { return; }
+  if (prIdx >= prPool.length) { prIdx = 0; }
+  prDone = false;
+  var p = P[prPool[prIdx]];
+  var trEl = document.getElementById("pr-tr");
+  var inEl = document.getElementById("pr-input");
+  var resEl = document.getElementById("pr-result");
+  var cntEl = document.getElementById("pr-count");
+  if (trEl) { trEl.textContent = p.tr; }
+  if (inEl) { inEl.value = ""; inEl.disabled = false; }
+  if (resEl) { resEl.className = "pr-result"; resEl.innerHTML = ""; }
+  if (cntEl) { cntEl.textContent = (prIdx + 1) + " / " + prPool.length; }
+}
+
+function checkPr() {
+  if (prDone) { return; }
+  prDone = true;
+  var inEl = document.getElementById("pr-input");
+  var resEl = document.getElementById("pr-result");
+  if (!inEl || !resEl) { return; }
+  inEl.disabled = true;
+  var userInput = inEl.value.trim();
+  var p = P[prPool[prIdx]];
+  var score = calcScore(userInput, p.en);
+
+  resEl.innerHTML = "";
+
+  /* Score */
+  var scoreWrap = makeEl("div", "pr-score-wrap");
+  var scoreNum = makeEl("div", "pr-score-num", score + "%");
+  scoreNum.style.color = score >= 80 ? "#27ae60" : score >= 50 ? "#e07b2a" : "#e74c3c";
+  var scoreLbl = makeEl("div", "pr-score-lbl", score >= 80 ? "Harika! Cok iyi!" : score >= 50 ? "Iyi deneme!" : "Devam et, pratik yap!");
+  scoreWrap.appendChild(scoreNum);
+  scoreWrap.appendChild(scoreLbl);
+  resEl.appendChild(scoreWrap);
+
+  /* User answer */
+  resEl.appendChild(makeEl("div", "pr-section-label", "Senin cevabın:"));
+  var uBox = makeEl("div", "pr-user-box", userInput || "(bos birakildi)");
+  resEl.appendChild(uBox);
+
+  /* Correct answer with word highlighting */
+  resEl.appendChild(makeEl("div", "pr-section-label", "Dogru cumle:"));
+  var cBox = makeEl("div", "pr-correct-box");
+  var uWords = normWords(userInput);
+  var cRaw = p.en.split(/\s+/);
+  var remaining = uWords.slice();
+  var i, span, nw, idx;
+  for (i = 0; i < cRaw.length; i++) {
+    nw = normWords(cRaw[i])[0] || "";
+    idx = remaining.indexOf(nw);
+    span = makeEl("span", idx !== -1 ? "word-ok" : "word-bad", cRaw[i]);
+    span.style.marginRight = "4px";
+    if (idx !== -1) { remaining.splice(idx, 1); }
+    cBox.appendChild(span);
+  }
+  resEl.appendChild(cBox);
+
+  /* Grammar tip */
+  var tipBox = makeEl("div", "pr-tip-box");
+  tipBox.appendChild(makeEl("div", "pr-tip-title", "Gramer Ipucu"));
+  tipBox.appendChild(makeEl("div", "pr-tip-text", getGrammarTip(p.en)));
+  resEl.appendChild(tipBox);
+
+  /* Next button */
+  var nextBtn = makeEl("button", "btn-next-pr", "Sonraki Cumle →");
+  nextBtn.onclick = function() { prIdx++; showPrSentence(); };
+  resEl.appendChild(nextBtn);
+
+  resEl.className = "pr-result on";
+}
+
+function selectPrCat(cat) {
+  prCat = cat;
+  buildFilters("pr-filters", P, prCat, selectPrCat);
+  buildPrPool();
+  showPrSentence();
+}
+
 function endDlg() {
   var res = document.getElementById("dlg-result");
   if (!res) { return; }
@@ -938,6 +1126,9 @@ function startApp() {
     showCard();
     buildFilters("ph-filters", P, phCat, selectPCat);
     renderPhrases();
+    buildFilters("pr-filters", P, prCat, selectPrCat);
+    buildPrPool();
+    showPrSentence();
     renderScenes();
   } catch(e) {
     var w = document.getElementById("fc-word");
