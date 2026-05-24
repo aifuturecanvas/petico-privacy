@@ -77,6 +77,8 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 .pbcopy { background:#e07b2a; color:#fff; }
 .phr-copied { font-size:11px; font-weight:700; color:#27ae60; margin-top:5px; display:none; }
 .phr-copied.on { display:block; }
+.ph-mode-btn { display:inline-block; padding:8px 16px; background:#1a3a5c; color:#fff; border-radius:20px; font-size:13px; font-weight:700; cursor:pointer; margin-bottom:13px; }
+.ph-mode-btn.tr-mode { background:#e07b2a; }
 
 /* Dialogue */
 .dlg-scene-btn { width:100%; text-align:left; background:#fff; border:2px solid #d0dce8; border-radius:12px; padding:13px 15px; margin-bottom:8px; cursor:pointer; font-size:14px; font-weight:600; color:#1a3a5c; }
@@ -211,6 +213,7 @@ body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; backg
 <div id="pg-ph" class="page">
   <div class="ptitle">Hazir Cumleler</div>
   <div class="psub">Fuarda kullanabilecegin ifadeler</div>
+  <div id="ph-mode-btn" class="ph-mode-btn" onclick="switchPhMode()">EN &rarr; TR</div>
   <div class="frow" id="ph-filters"></div>
   <div id="ph-list"></div>
 </div>
@@ -529,6 +532,7 @@ var knownArr = [];
 var fcFlipped = false;
 
 var phCat = "Tumu";
+var phMode = "en_tr";
 
 var dlgActive = null;
 var dlgStep = 0;
@@ -704,23 +708,28 @@ function renderPhrases() {
   for (i = 0; i < P.length; i++) {
     if (phCat === "Tumu" || P[i].cat === phCat) { data.push({p:P[i], idx:i}); }
   }
+  var trEn = (phMode === "tr_en");
   for (i = 0; i < data.length; i++) {
     (function(p, localIdx) {
+      var primaryTxt   = trEn ? p.tr : p.en;
+      var secondaryTxt = trEn ? p.en : p.tr;
+      var showLbl      = trEn ? "EN Goster" : "TR Goster";
+      var hideLbl      = trEn ? "EN Gizle"  : "TR Gizle";
       var box = makeEl("div", "phr");
-      var en  = makeEl("div", "phr-en", p.en);
-      var tr  = makeEl("div", "phr-tr", p.tr);
+      var en  = makeEl("div", "phr-en", primaryTxt);
+      var tr  = makeEl("div", "phr-tr", secondaryTxt);
       tr.id = "ptr" + localIdx;
       var acts = makeEl("div", "phr-acts");
-      var showBtn = makeEl("button", "phr-btn pbshow", "TR Goster");
+      var showBtn = makeEl("button", "phr-btn pbshow", showLbl);
       showBtn.onclick = function() {
         var el = document.getElementById("ptr" + localIdx);
         if (!el) { return; }
         if (el.className === "phr-tr") {
           el.className = "phr-tr on";
-          showBtn.textContent = "TR Gizle";
+          showBtn.textContent = hideLbl;
         } else {
           el.className = "phr-tr";
-          showBtn.textContent = "TR Goster";
+          showBtn.textContent = showLbl;
         }
       };
       var copyBtn = makeEl("button", "phr-btn pbcopy", "Kopyala");
@@ -743,6 +752,21 @@ function renderPhrases() {
       wr.appendChild(box);
     })(data[i].p, i);
   }
+}
+
+function switchPhMode() {
+  phMode = (phMode === "en_tr") ? "tr_en" : "en_tr";
+  var btn = document.getElementById("ph-mode-btn");
+  if (btn) {
+    if (phMode === "tr_en") {
+      btn.textContent = "TR → EN";
+      btn.className = "ph-mode-btn tr-mode";
+    } else {
+      btn.textContent = "EN → TR";
+      btn.className = "ph-mode-btn";
+    }
+  }
+  renderPhrases();
 }
 
 function selectPCat(cat) {
